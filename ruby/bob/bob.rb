@@ -2,6 +2,7 @@ class Bob
   def hey(something)
     return 'Woah, chill out!' if shouting?(something)
     return 'Sure.' if question?(something)
+    return 'Fine. Be that way!' if silence?(something)
     'Whatever.'
   end
   
@@ -11,6 +12,10 @@ class Bob
   
   def question?(something)
     something.end_with? '?'
+  end
+
+  def silence?(something)
+    something.strip.empty?
   end
   
   def saying_something_other_than_numbers?(something)
