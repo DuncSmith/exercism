@@ -8,11 +8,11 @@ class Sentence
   end
 
   def is_shouted?
-    is_something_other_than_numbers? and is_all_upper_case?
+    is_something_other_than_numbers? && is_all_upper_case?
   end
 
   def is_a_question?
-    the_words.end_with? '?'
+    words.end_with? '?'
   end
 
   def is_silent?
@@ -21,7 +21,7 @@ class Sentence
 
   private
 
-  attr_reader :the_words
+  attr_reader :words
 
   def is_something_other_than_numbers?
     words =~ /[A-Za-z]/
