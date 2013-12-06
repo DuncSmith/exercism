@@ -1,0 +1,17 @@
+AllCops:
+  Excludes:
+    - bob_test.rb
+# Class documentation
+Documentation:
+  Enabled: false
+# UTF-8 encoding comment in class
+Encoding:
+  Enabled: false
+
+# Common configuration
+LineLength:
+  Max: 80
+
+MethodLength:
+  CountComments: false # count full line comments?
+  Max: 10
