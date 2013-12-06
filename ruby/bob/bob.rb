@@ -1,10 +1,10 @@
 class Sentence
-  def initialize(the_words)
-    @the_words = the_words
+  def initialize(words)
+    @words = words
   end
 
-  def self.of(the_words)
-    Sentence.new(the_words)
+  def self.of(words)
+    Sentence.new(words)
   end
 
   def is_shouted?
@@ -16,7 +16,7 @@ class Sentence
   end
 
   def is_silent?
-    the_words.strip.empty?
+    words.strip.empty?
   end
 
   private
@@ -24,11 +24,11 @@ class Sentence
   attr_reader :the_words
 
   def is_something_other_than_numbers?
-    the_words =~ /[A-Za-z]/
+    words =~ /[A-Za-z]/
   end
 
   def is_all_upper_case?
-    the_words == the_words.upcase
+    words == words.upcase
   end
 end
 
