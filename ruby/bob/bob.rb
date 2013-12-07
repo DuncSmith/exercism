@@ -7,15 +7,15 @@ class Sentence
     Sentence.new(words)
   end
 
-  def is_shouted?
-    is_something_other_than_numbers? && is_all_upper_case?
+  def shouted?
+    not_just_numbers? && upper_case?
   end
 
-  def is_a_question?
+  def question?
     words.end_with? '?'
   end
 
-  def is_silent?
+  def silent?
     words.strip.empty?
   end
 
@@ -23,38 +23,45 @@ class Sentence
 
   attr_reader :words
 
-  def is_something_other_than_numbers?
+  def not_just_numbers?
     words =~ /[A-Za-z]/
   end
 
-  def is_all_upper_case?
+  def upper_case?
     words == words.upcase
   end
-end
-
-class Response
-  def initialize(sentence_in_response_to)
-    @sentence = sentence_in_response_to
-  end
-
-  def self.to(sentence)
-    Response.new(sentence)
-  end
-
-  def say
-    return 'Woah, chill out!' if sentence.is_shouted?
-    return 'Sure.' if sentence.is_a_question?
-    return 'Fine. Be that way!' if sentence.is_silent?
-    'Whatever.'
-  end
-
-  private
-
-  attr_reader :sentence
 end
 
 class Bob
   def hey(something)
     Response.to(Sentence.of(something)).say
+  end
+
+  private
+
+  class Response
+    def initialize(sentence)
+      @sentence = sentence
+    end
+
+    def self.to(sentence)
+      Response.new(sentence)
+    end
+
+    def say
+      if sentence.shouted?
+        'Woah, chill out!'
+      elsif sentence.question?
+        'Sure.'
+      elsif sentence.silent?
+        'Fine. Be that way!'
+      else
+        'Whatever.'
+      end
+    end
+
+    private
+
+    attr_reader :sentence
   end
 end
