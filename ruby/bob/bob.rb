@@ -3,10 +3,6 @@ class Sentence
     @words = words
   end
 
-  def self.of(words)
-    Sentence.new(words)
-  end
-
   def shouted?
     not_just_numbers? && upper_case?
   end
@@ -33,35 +29,21 @@ class Sentence
 end
 
 class Bob
-  def hey(something)
-    Response.to(Sentence.of(something)).say
+  def hey(words)
+    respond_to(Sentence.new(words))
   end
 
   private
 
-  class Response
-    def initialize(sentence)
-      @sentence = sentence
+  def respond_to(sentence)
+    if sentence.shouted?
+      'Woah, chill out!'
+    elsif sentence.question?
+      'Sure.'
+    elsif sentence.silent?
+      'Fine. Be that way!'
+    else
+      'Whatever.'
     end
-
-    def self.to(sentence)
-      Response.new(sentence)
-    end
-
-    def say
-      if sentence.shouted?
-        'Woah, chill out!'
-      elsif sentence.question?
-        'Sure.'
-      elsif sentence.silent?
-        'Fine. Be that way!'
-      else
-        'Whatever.'
-      end
-    end
-
-    private
-
-    attr_reader :sentence
   end
 end
