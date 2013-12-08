@@ -4,7 +4,7 @@ class Sentence
   end
 
   def shouted?
-    not_just_numbers? && upper_case?
+    includes_letters? && upper_case?
   end
 
   def question?
@@ -19,8 +19,8 @@ class Sentence
 
   attr_reader :words
 
-  def not_just_numbers?
-    words =~ /[A-Za-z]/
+  def includes_letters?
+    words =~ /[A-Z]/i
   end
 
   def upper_case?
