@@ -4,7 +4,7 @@ class Sentence
   end
 
   def shouted?
-    includes_letters? && upper_case?
+    includes_letter? && upper_case?
   end
 
   def question?
@@ -19,7 +19,7 @@ class Sentence
 
   attr_reader :words
 
-  def includes_letters?
+  def includes_letter?
     words =~ /[A-Z]/i
   end
 
