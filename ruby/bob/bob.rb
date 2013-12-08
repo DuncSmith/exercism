@@ -30,12 +30,12 @@ end
 
 class Bob
   def hey(words)
-    respond_to(Sentence.new(words))
+    reply_to(Sentence.new(words))
   end
 
   private
 
-  def respond_to(sentence)
+  def reply_to(sentence)
     if sentence.shouted?
       'Woah, chill out!'
     elsif sentence.question?
