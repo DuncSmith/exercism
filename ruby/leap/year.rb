@@ -4,10 +4,14 @@ class Year
   end
 
   def leap?
-    (number % 400 == 0) || ((number % 100) != 0 && (number % 4) == 0)
+    divisible?(400) || (!divisible?(100) && divisible?(4))
   end
 
   private
 
   attr_reader :number
+
+  def divisible?(by)
+    (number % by).zero?
+  end
 end
