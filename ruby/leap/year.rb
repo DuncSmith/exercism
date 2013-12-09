@@ -1,3 +1,9 @@
+class Fixnum
+  def divisible?(by)
+    (self % by).zero?
+  end
+end
+
 class Year
   def initialize(number)
     @number = number
@@ -12,6 +18,6 @@ class Year
   attr_reader :number
 
   def divisible?(by)
-    (number % by).zero?
+    number.divisible?(by)
   end
 end
