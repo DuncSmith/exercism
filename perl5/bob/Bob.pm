@@ -38,7 +38,7 @@ $is_question = sub
 {
     my $message = shift;
 
-    $ends_with->($message, '?')
+    $message =~ /\?$/;
 };
 
 $is_silence = sub
@@ -60,14 +60,6 @@ $is_upper_case = sub
     my $message = shift;
 
     $message eq uc($message);
-};
-
-$ends_with = sub
-{
-    my $string = shift;
-    my $sub_string = shift;
-
-    substr($string, -1, length($sub_string)) eq $sub_string;
 };
 
 1;
