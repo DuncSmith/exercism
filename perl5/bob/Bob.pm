@@ -12,7 +12,11 @@ sub hey
     }
     elsif (is_question($message))
     {
-        'Sure.'
+        'Sure.';
+    }
+    elsif (is_silence($message))
+    {
+        'Fine. Be that way!';
     }
     else
     {
@@ -27,6 +31,20 @@ sub is_shouted
     contains_alpha($message) && is_upper_case($message);
 }
 
+sub is_question
+{
+    my $message = shift;
+
+    ends_with($message, '?')
+}
+
+sub is_silence
+{
+    my $message = shift;
+
+    $message =~ /^\s*$/;
+}
+
 sub contains_alpha
 {
     my $message = shift;
@@ -39,13 +57,6 @@ sub is_upper_case
     my $message = shift;
 
     $message eq uc($message);
-}
-
-sub is_question
-{
-    my $message = shift;
-
-    ends_with($message, '?')
 }
 
 sub ends_with
