@@ -6,15 +6,15 @@ sub hey
 {
     my $message = shift;
 
-    if (is_shouted($message))
+    if (_is_shouted($message))
     {
         'Woah, chill out!';
     }
-    elsif (is_question($message))
+    elsif (_is_question($message))
     {
         'Sure.';
     }
-    elsif (is_silence($message))
+    elsif (_is_silence($message))
     {
         'Fine. Be that way!';
     }
@@ -24,42 +24,42 @@ sub hey
     }
 }
 
-sub is_shouted
+sub _is_shouted
 {
     my $message = shift;
 
-    contains_alpha($message) && is_upper_case($message);
+    _contains_alpha($message) && _is_upper_case($message);
 }
 
-sub is_question
+sub _is_question
 {
     my $message = shift;
 
-    ends_with($message, '?')
+    _ends_with($message, '?')
 }
 
-sub is_silence
+sub _is_silence
 {
     my $message = shift;
 
     $message =~ /^\s*$/;
 }
 
-sub contains_alpha
+sub _contains_alpha
 {
     my $message = shift;
 
     $message =~ /[A-Z]/i;
 }
 
-sub is_upper_case
+sub _is_upper_case
 {
     my $message = shift;
 
     $message eq uc($message);
 }
 
-sub ends_with
+sub _ends_with
 {
     my $string = shift;
     my $sub_string = shift;
