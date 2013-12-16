@@ -1,23 +1,25 @@
 package Bob;
 
 use strict;
+no warnings "experimental::lexical_subs";
+use feature 'lexical_subs'; # requires Perl 5.18
 
-my ($is_shouted, $is_question, $is_silence);
-my ($contains_alpha, $is_upper_case, $ends_with);
+my sub is_shouted; my sub is_question; my sub is_silence;
+my sub contains_alpha; my sub is_upper_case;
 
 sub hey
 {
     my $message = shift;
 
-    if ($is_shouted->($message))
+    if (is_shouted($message))
     {
         'Woah, chill out!';
     }
-    elsif ($is_question->($message))
+    elsif (is_question($message))
     {
         'Sure.';
     }
-    elsif ($is_silence->($message))
+    elsif (is_silence($message))
     {
         'Fine. Be that way!';
     }
@@ -27,35 +29,35 @@ sub hey
     }
 }
 
-$is_shouted = sub
+sub is_shouted
 {
     my $message = shift;
 
-    $contains_alpha->($message) && $is_upper_case->($message);
+    contains_alpha($message) && is_upper_case($message);
 };
 
-$is_question = sub
+sub is_question
 {
     my $message = shift;
 
     $message =~ /\?$/;
 };
 
-$is_silence = sub
+sub is_silence
 {
     my $message = shift;
 
     $message =~ /^\s*$/;
 };
 
-$contains_alpha = sub
+sub contains_alpha
 {
     my $message = shift;
 
     $message =~ /[A-Z]/i;
 };
 
-$is_upper_case = sub
+sub is_upper_case
 {
     my $message = shift;
 
