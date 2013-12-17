@@ -11,57 +11,45 @@ sub hey
 {
     my $message = shift;
 
-    if (is_shouted($message))
-    {
-        'Woah, chill out!';
-    }
-    elsif (is_question($message))
-    {
-        'Sure.';
-    }
-    elsif (is_silence($message))
-    {
-        'Fine. Be that way!';
-    }
-    else
-    {
-        'Whatever.';
-    }
+    return 'Woah, chill out!' if is_shouted($message);
+    return 'Sure.' if is_question($message);
+    return 'Fine. Be that way!' if is_silence($message);
+    return 'Whatever.';
 }
 
 sub is_shouted
 {
     my $message = shift;
 
-    contains_alpha($message) && is_upper_case($message);
-};
+    is_words($message) && is_upper_case($message);
+}
 
 sub is_question
 {
     my $message = shift;
 
     $message =~ /\?$/;
-};
+}
 
 sub is_silence
 {
     my $message = shift;
 
     $message =~ /^\s*$/;
-};
+}
 
-sub contains_alpha
+sub is_words
 {
     my $message = shift;
 
-    $message =~ /[A-Z]/i;
-};
+    $message =~ /\p{Letter}/;
+}
 
 sub is_upper_case
 {
     my $message = shift;
 
     $message eq uc($message);
-};
+}
 
 1;
