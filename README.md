@@ -25,4 +25,5 @@ Links to exercise submissions and related discussions at [exercism.io](http://ex
 ####Bob
 
 1. http://exercism.io/submissions/e35461f30313a9e20f894b70
-
+2. http://exercism.io/submissions/9d6daeccfe87ce0bfe998561
+3. http://exercism.io/submissions/b34054451884f0686ae28ef5
