@@ -3,12 +3,12 @@ class School
     students
   end
 
-  def add(name, grade)
-    (students[grade] ||= []) << name
+  def add(student_name, grade_number)
+    students_by_grade(grade_number) << student_name
   end
 
   def grade(grade_number)
-    students[grade_number] || []
+    students_by_grade(grade_number).clone
   end
 
   def sort
@@ -21,8 +21,12 @@ class School
     @students ||= {}
   end
 
+  def students_by_grade(grade_number)
+    students[grade_number] ||= []
+  end
+
   def sort_grade(grade_number)
-    [grade_number, grade(grade_number).sort]
+    [grade_number, students_by_grade(grade_number).sort]
   end
 
   def sorted_grade_numbers
