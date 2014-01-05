@@ -1,8 +1,9 @@
 package Bob;
 
+use v5.18; # required for 'lexical_subs'
 use strict;
 no warnings "experimental::lexical_subs";
-use feature 'lexical_subs'; # requires Perl 5.18
+use feature 'lexical_subs';
 
 my sub is_shouted; my sub is_question; my sub is_silence;
 my sub contains_alpha; my sub is_upper_case;
