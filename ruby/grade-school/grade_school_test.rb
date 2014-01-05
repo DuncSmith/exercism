@@ -57,4 +57,26 @@ class SchoolTest < MiniTest::Unit::TestCase
     assert_equal sorted, school.sort
     assert_equal [3, 4, 6], school.sort.keys
   end
+
+  def test_get_students_in_a_non_existant_grade_does_not_mutate_db
+    # empty db should stay empty
+    assert_equal({}, school.db)
+    school.grade(2)
+    assert_equal({}, school.db)
+  end
+
+  def test_cannot_externally_mutate_empty_internal_db
+    school.db[2] = ["William", "Samantha"]
+    assert_equal [], school.grade(2)
+  end
+
+  def test_distinct_db_everytime
+    refute_same school.db, school.db
+  end
+
+  def test_cannot_externally_mutate_non_empty_internal_db
+    school.add('William', 2)
+    school.db[2] << 'Samantha';
+    assert_equal ['William'], school.grade(2)
+  end
 end
