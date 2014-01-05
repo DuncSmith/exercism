@@ -20,6 +20,13 @@ Links to exercise submissions and related discussions at [exercism.io](http://ex
 1. http://exercism.io/submissions/94eabf2abc0884988990473c
 2. http://exercism.io/submissions/12c56814c65d11423ee4e686
 
+####Grade-school
+
+1. http://exercism.io/submissions/3b5e1c1b40f4724b187e98cc
+2. http://exercism.io/submissions/ef63876df61487971540a9e4
+3. http://exercism.io/submissions/374bfcb635b6072788099e30
+4. http://exercism.io/submissions/cbc221ffd385d67b05ae1960
+
 ###perl5
 
 ####Bob
