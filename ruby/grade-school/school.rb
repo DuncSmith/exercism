@@ -1,6 +1,6 @@
 class School
   def db
-    # clone/dup is shallow copy but need deeper clone of child arrays aswell
+    # deep copy to also clone arrays of students in grades
     Hash[grade_numbers.map { |grade_number| clone_grade grade_number }]
   end
 
