@@ -27,6 +27,15 @@ Links to exercise submissions and related discussions at [exercism.io](http://ex
 3. http://exercism.io/submissions/374bfcb635b6072788099e30
 4. http://exercism.io/submissions/cbc221ffd385d67b05ae1960
 
+####Hamming
+
+1. http://exercism.io/submissions/9a39dac1c3d6370243344043
+2. http://exercism.io/submissions/7ba01ebd9f3ae550738e18d1
+
+####Grains
+
+1. http://exercism.io/submissions/b8047c8c6070e5584e7535d4
+
 ###perl5
 
 ####Bob
