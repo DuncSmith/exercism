@@ -1,6 +1,10 @@
 class Grains
+  def initialize
+    @squares = [nil, 1]
+  end
+
   def square(number)
-    number == 1 ? 1 : 2 * square(number-1)
+    @squares[number] ||= 2 * square(number-1)
   end
 
   def total
