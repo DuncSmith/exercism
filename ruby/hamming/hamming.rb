@@ -1,11 +1,11 @@
 class Hamming
-  def self.compute(strand_a, strand_b)
-    positional_pairs(strand_a, strand_b).count { |a, b| a != b }
+  def self.compute(strand, other)
+    positional_pairs(strand, other).count { |a, b| a != b }
   end
 
   private
 
-  def self.positional_pairs(strand_a, strand_b)
-    strand_a.chars.zip(strand_b.chars).take(strand_b.size)
+  def self.positional_pairs(strand, other)
+    strand.chars.zip(other.chars).take(other.size)
   end
 end
