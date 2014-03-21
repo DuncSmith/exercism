@@ -4,10 +4,10 @@ class Hamming
   end
 
   class << self
-  	private
+    private
 
-  	def positional_pairs(strand, other)
-    	strand.chars.zip(other.chars).take(other.size)
-  	end
+    def positional_pairs(strand, other)
+      strand.chars.zip(other.chars).take(other.size)
+    end
   end
 end
