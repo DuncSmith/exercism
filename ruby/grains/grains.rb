@@ -1,6 +1,6 @@
 class Grains
   def initialize
-    @squares = [nil, 1]
+    @squares = [0, 1]
   end
 
   def square(number)
