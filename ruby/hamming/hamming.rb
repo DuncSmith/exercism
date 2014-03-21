@@ -1,11 +1,22 @@
 class Hamming
   def self.compute(strand, other)
-    positional_pairs(strand, other).count { |a, b| a != b }
+    Hamming.new(strand, other).distance
+  end
+
+  def initialize(strand, other)
+    @strand = strand
+    @other = other
+  end
+
+  def distance
+    positional_pairs.count { |a, b| a != b }
   end
 
   private
 
-  def self.positional_pairs(strand, other)
+  attr_reader :strand, :other
+
+  def positional_pairs
     strand.chars.zip(other.chars).take(other.size)
   end
 end
