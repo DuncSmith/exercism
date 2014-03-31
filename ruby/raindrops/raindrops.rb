@@ -16,12 +16,12 @@ class Raindrops
   attr_reader :number
 
   def substituted?
-    substitutions.any? { |substitution| multiple? substitution.divisor }
+    substitutions.any? { |substitution| multiple? substitution[:divisor] }
   end
 
   def substituted_string
     substitutions.map do |substitution|
-      substitution.word if multiple? substitution.divisor
+      substitution[:word] if multiple? substitution[:divisor]
     end.join
   end
 
@@ -35,18 +35,9 @@ class Raindrops
 
   def substitutions
     [
-      Substitution.new(3, 'Pling'),
-      Substitution.new(5, 'Plang'),
-      Substitution.new(7, 'Plong')
+      {divisor: 3, word: 'Pling'},
+      {divisor: 5, word: 'Plang'},
+      {divisor: 7, word: 'Plong'}
     ]
-  end
-
-  class Substitution
-    attr_reader :divisor, :word
-
-    def initialize(divisor, word)
-      @divisor = divisor
-      @word = word
-    end
   end
 end
