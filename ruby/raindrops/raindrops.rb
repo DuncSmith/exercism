@@ -16,11 +16,13 @@ class Raindrops
   attr_reader :number
 
   def special?
-    multiple_at_least_one? 3, 5, 7
+    multiple_at_least_one? special_cases.keys
   end
 
   def special_string
-    pling + plang + plong
+    special_cases.keys.reduce('') do |text, divisor|
+      text + (multiple?(divisor) ? special_cases[divisor] : '')
+    end
   end
 
   def ordinary_string
@@ -28,22 +30,18 @@ class Raindrops
   end
 
   def multiple_at_least_one?(*divisors)
-    divisors.any? { |divisor| multiple? divisor }
-  end
-
-  def pling
-    multiple?(3) ? 'Pling' : ''
-  end
-
-  def plang
-    multiple?(5) ? 'Plang' : ''
-  end
-
-  def plong
-    multiple?(7) ? 'Plong' : ''
+    divisors.flatten.any? { |divisor| multiple? divisor }
   end
 
   def multiple?(divisor)
     (number % divisor).zero?
+  end
+
+  def special_cases
+    {
+      3 => 'Pling',
+      5 => 'Plang',
+      7 => 'Plong'
+    }
   end
 end
