@@ -8,40 +8,45 @@ class Raindrops
   end
 
   def to_s
-    special? ? special_string : ordinary_string
+    substituted? ? substituted_string : ordinary_string
   end
 
   private
 
   attr_reader :number
 
-  def special?
-    multiple_at_least_one? special_cases.keys
+  def substituted?
+    substitutions.any? { |substitution| multiple? substitution.divisor }
   end
 
-  def special_string
-    special_cases.keys.reduce('') do |text, divisor|
-      text + (multiple?(divisor) ? special_cases[divisor] : '')
-    end
+  def substituted_string
+    substitutions.map do |substitution|
+      substitution.word if multiple? substitution.divisor
+    end.join
   end
 
   def ordinary_string
     number.to_s
   end
 
-  def multiple_at_least_one?(*divisors)
-    divisors.flatten.any? { |divisor| multiple? divisor }
-  end
-
   def multiple?(divisor)
     (number % divisor).zero?
   end
 
-  def special_cases
-    {
-      3 => 'Pling',
-      5 => 'Plang',
-      7 => 'Plong'
-    }
+  def substitutions
+    [
+      Substitution.new(3, 'Pling'),
+      Substitution.new(5, 'Plang'),
+      Substitution.new(7, 'Plong')
+    ]
+  end
+
+  class Substitution
+    attr_reader :divisor, :word
+
+    def initialize(divisor, word)
+      @divisor = divisor
+      @word = word
+    end
   end
 end
