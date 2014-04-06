@@ -1,8 +1,6 @@
 class ETL
-  def self.transform(scoreToLettersMap)
-    scores = scoreToLettersMap.keys
-    letterScorePairs = scores.map do |score|
-      letters = scoreToLettersMap[score]
+  def self.transform(scoresToLettersMap)
+    letterScorePairs = scoresToLettersMap.map do |score, letters|
       Hash[letters.map {|letter| [letter.downcase, score]}]
     end
     letterScorePairs.reduce(:merge)
