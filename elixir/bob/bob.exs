@@ -2,29 +2,29 @@ defmodule Teenager do
   def hey(input) do
     cond do
       silence?(input) -> "Fine. Be that way!"
-      shouted?(input) -> "Woah, chill out!"
+      shout?(input) -> "Woah, chill out!"
       question?(input) -> "Sure."
       true -> "Whatever."
     end
   end
   
-  def question?(input) do
-    String.ends_with? input, "?"
+  defp silence?(input) do
+    String.strip(input) == ""
   end
   
-  def shouted?(input) do
+  defp shout?(input) do
     uppercase?(input) and alpha_chars?(input)
   end
   
-  def uppercase?(input) do
+  defp uppercase?(input) do
     input == String.upcase(input)
   end
   
-  def alpha_chars?(input) do
+  defp alpha_chars?(input) do
     String.match? input, ~r/[[:alpha:]]/
   end
   
-  def silence?(input) do
-    String.strip(input) == ""
+  defp question?(input) do
+    String.ends_with? input, "?"
   end
 end
