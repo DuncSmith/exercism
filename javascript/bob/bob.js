@@ -13,28 +13,28 @@ Bob.prototype.hey = function(input) {
   return 'Whatever.';
 };
   
-function isShout(input) {
+var isShout = function(input) {
   return isUpperCase(input) && containsLetters(input);
 }
   
-function isUpperCase(input) {
+var isUpperCase = function(input) {
   return input === input.toUpperCase();
 }
   
-function containsLetters(input) {
+var containsLetters = function(input) {
   return input.match(/[A-Z]/i);
 }
   
-function isQuestion(input) {
+var isQuestion = function(input) {
   return endsWith(input, '?');
 }
 
-function endsWith(input, ending) {
+var endsWith = function(input, ending) {
   var lastIndex = input.lastIndexOf(ending);
   return lastIndex !== -1 && lastIndex === (input.length - ending.length);
 }
   
-function isSilence(input) {
+var isSilence = function(input) {
   return input.trim() === "";
 }
 
