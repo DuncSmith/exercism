@@ -42,11 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="example\Example.cs" />
-    <Compile Include="example\ExampleTests.cs" />
+    <Compile Include="leap\LeapTest.cs" />
+    <Compile Include="leap\Year.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="leap\README.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
