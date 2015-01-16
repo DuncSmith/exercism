@@ -4,15 +4,9 @@ type SumOfMultiples(divisors) =
   new() = SumOfMultiples [3;5]
 
   member this.To limit =
-    let rec toTailRecursive limit sum =
-      if limit <= 1 then
-        sum
-      else if this.IsMultipleOfAny (limit-1) divisors then
-        toTailRecursive (limit-1) (sum + limit-1)
-      else
-        toTailRecursive (limit-1) sum
-    toTailRecursive limit 0
+    let values = [1 .. (limit-1)]
+    List.sum (List.choose this.IsMultipleOfAny values)
   
-  member this.IsMultipleOfAny value divisors =
+  member private this.IsMultipleOfAny value =
     let isMultiple divisor = ((value % divisor) = 0)
-    List.exists isMultiple divisors
+    if (List.exists isMultiple divisors) then Some(value) else None
