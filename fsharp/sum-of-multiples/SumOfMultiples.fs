@@ -13,6 +13,7 @@ type SumOfMultiples(divisors) =
   member this.IsMultipleOfAny(x, divisors) =
     match divisors with
     | [] -> false
-    | [divisor] -> (x % divisor) = 0
-    | divisor :: others -> this.IsMultipleOfAny(x, [divisor]) ||
+    | divisor :: others -> this.IsMultiple(x, divisor) ||
                            this.IsMultipleOfAny(x, others)
+
+  member this.IsMultiple(x, divisor) = ((x % divisor) = 0)
