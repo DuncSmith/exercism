@@ -5,9 +5,9 @@ type SumOfMultiples(divisors) =
 
   member this.To limit =
     let rec toTailRecursive limit sum =
-      if limit <= 1 then 
+      if limit <= 1 then
         sum
-      else if this.IsMultipleOfAny (limit-1) divisors then 
+      else if this.IsMultipleOfAny (limit-1) divisors then
         toTailRecursive (limit-1) (sum + limit-1)
       else
         toTailRecursive (limit-1) sum
