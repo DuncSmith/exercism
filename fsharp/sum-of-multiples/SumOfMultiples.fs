@@ -4,9 +4,11 @@ type SumOfMultiples(divisors) =
   new() = SumOfMultiples [3;5]
 
   member this.To(x) =
-    if x <= 1 then 0
-    else if this.IsMultipleOfAny(x-1, divisors) then x-1 + this.To(x-1)
-    else this.To(x-1)
+    let rec toAcc x acc =
+      if x <= 1 then acc
+      else if this.IsMultipleOfAny(x-1, divisors) then toAcc (x-1) (acc + x-1)
+      else toAcc (x-1) acc
+    toAcc x 0
   
   member this.IsMultipleOfAny(x, divisors) =
     match divisors with
