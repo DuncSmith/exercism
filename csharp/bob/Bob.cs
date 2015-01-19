@@ -4,31 +4,74 @@ public class Bob
 {
   public string Hey(string words)
   {
-    var phrase = new Phrase(words);
-    if (phrase.Shouted) return "Whoa, chill out!";
-    if (phrase.Question) return "Sure.";
-    if (phrase.Silent) return "Fine. Be that way!";
-    return "Whatever.";
+    return React.ToShout(words)    |
+           React.ToQuestion(words) |
+           React.ToSilence(words)  |
+           React.WithIndifference();
   }
 }
 
-public class Phrase
+public static class React
 {
-  private string words;
-
-  public Phrase(string words)
+  public static Reaction ToShout(string phrase)
   {
-    this.words = words;
+    return new ShoutReaction(phrase);
   }
 
-  public bool Shouted
+  public static Reaction ToQuestion(string phrase)
   {
-    get { return IsUppercase && ContainsLetters; }
+    return new QuestionReaction(phrase);
+  }
+
+  public static Reaction ToSilence(string phrase)
+  {
+    return new SilenceReaction(phrase);
+  }
+
+  public static Reaction WithIndifference()
+  {
+    return new IndifferentReaction();
+  }
+}
+
+public abstract class Reaction
+{
+  protected Reaction(string phrase)
+  {
+    Phrase = phrase;
+  }
+
+  protected string Phrase { get; private set; }
+
+  public abstract bool Triggered();
+
+  public abstract string Response();
+
+  public static Reaction operator |(Reaction first, Reaction second)
+  {
+    return first.Triggered() ? first : second;
+  }
+
+  public static implicit operator string(Reaction reaction)
+  {
+    return reaction.Response();
+  }
+}
+
+public class ShoutReaction : Reaction
+{
+  public ShoutReaction(string phrase) : base(phrase)
+  {
+  }
+
+  public override bool Triggered()
+  {
+    return IsUppercase && ContainsLetters;
   }
 
   private bool IsUppercase
   {
-    get { return words.Equals(words.ToUpper()); }
+    get { return Phrase.Equals(Phrase.ToUpper()); }
   }
 
   private bool ContainsLetters
@@ -36,17 +79,63 @@ public class Phrase
     get
     {
       // match at least one unicode letter (posix not supported in .NET)
-      return Regex.IsMatch(words, @"\p{L}");
+      return Regex.IsMatch(Phrase, @"\p{L}");
     }
   }
 
-  public bool Question
+  public override string Response()
   {
-    get { return words.Trim().EndsWith("?"); }
+    return "Whoa, chill out!";
+  }
+}
+
+public class QuestionReaction : Reaction
+{
+  public QuestionReaction(string phrase) : base(phrase)
+  {
   }
 
-  public bool Silent
+  public override bool Triggered()
   {
-    get { return words.Trim().Equals(string.Empty); }
+    return Phrase.Trim().EndsWith("?");
+  }
+
+  public override string Response()
+  {
+    return "Sure.";
+  }
+}
+
+public class SilenceReaction : Reaction
+{
+  public SilenceReaction(string phrase) : base(phrase)
+  {
+  }
+
+  public override bool Triggered()
+  {
+    return Phrase.Trim().Equals(string.Empty);
+  }
+
+  public override string Response()
+  {
+    return "Fine. Be that way!";
+  }
+}
+
+public class IndifferentReaction : Reaction
+{
+  public IndifferentReaction() : base(string.Empty)
+  {
+  }
+
+  public override bool Triggered()
+  {
+    return true;
+  }
+
+  public override string Response()
+  {
+    return "Whatever.";
   }
 }
