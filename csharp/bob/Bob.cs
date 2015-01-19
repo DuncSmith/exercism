@@ -2,37 +2,51 @@
 
 public class Bob
 {
-  public string Hey(string phrase)
+  public string Hey(string words)
   {
-    if (Shouted(phrase)) return "Whoa, chill out!";
-    if (Question(phrase)) return "Sure.";
-    if (Silent(phrase)) return "Fine. Be that way!";
+    var phrase = new Phrase(words);
+    if (phrase.Shouted) return "Whoa, chill out!";
+    if (phrase.Question) return "Sure.";
+    if (phrase.Silent) return "Fine. Be that way!";
     return "Whatever.";
   }
+}
 
-  private static bool Shouted(string phrase)
+public class Phrase
+{
+  private string words;
+
+  public Phrase(string words)
   {
-    return IsUppercase(phrase) && ContainsLetters(phrase);
+    this.words = words;
   }
 
-  private static bool IsUppercase(string phrase)
+  public bool Shouted
   {
-     return phrase.Equals(phrase.ToUpper());
+    get { return IsUppercase && ContainsLetters; }
   }
 
-  private static bool ContainsLetters(string phrase)
+  private bool IsUppercase
   {
-    // match at least one unicode letter (posix not supported in .NET)
-    return Regex.IsMatch(phrase, @"\p{L}");
+    get { return words.Equals(words.ToUpper()); }
   }
 
-  private static bool Question(string phrase)
+  private bool ContainsLetters
   {
-    return phrase.Trim().EndsWith("?");
+    get
+    {
+      // match at least one unicode letter (posix not supported in .NET)
+      return Regex.IsMatch(words, @"\p{L}");
+    }
   }
 
-  private static bool Silent(string phrase)
+  public bool Question
   {
-    return phrase.Trim().Equals(string.Empty);
+    get { return words.Trim().EndsWith("?"); }
+  }
+
+  public bool Silent
+  {
+    get { return words.Trim().Equals(string.Empty); }
   }
 }
