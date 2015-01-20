@@ -1,59 +1,77 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 public class Bob
 {
-  private IDictionary<PhraseType, string> responses =
-    new Dictionary<PhraseType, string>
+  private readonly IEnumerable<Func<string, Reaction>> reactionExpressions;
+
+  public Bob()
+    : this(new Func<string, Reaction>[]
     {
-      {PhraseType.Shout, "Whoa, chill out!"},
-      {PhraseType.Question, "Sure."},
-      {PhraseType.Silence, "Fine. Be that way!"},
-      {PhraseType.Statement, "Whatever."}
-    };
+      words => new ShoutReaction(words),
+      words => new QuestionReaction(words),
+      words => new SilenceReaction(words),
+      words => new IndifferentReaction()
+    })
+  {
+  }
+
+  public Bob(IEnumerable<Func<string, Reaction>> reactionExpressions)
+  {
+    this.reactionExpressions = reactionExpressions;
+  }
 
   public string Hey(string words)
   {
-    return responses[new Phrase(words).Type];
+    return Reactions(words).Aggregate((r1, r2) => r1 | r2);
+  }
+
+  private IEnumerable<Reaction> Reactions(string words)
+  {
+    return reactionExpressions.Select(re => re(words));
   }
 }
 
-public enum PhraseType
+public abstract class Reaction
 {
-  Statement,
-  Shout,
-  Question,
-  Silence
+  protected Reaction(string phrase)
+  {
+    Phrase = phrase;
+  }
+
+  protected string Phrase { get; private set; }
+
+  public abstract bool Triggered();
+
+  public abstract string Response();
+
+  public static Reaction operator |(Reaction first, Reaction second)
+  {
+    return first.Triggered() ? first : second;
+  }
+
+  public static implicit operator string(Reaction reaction)
+  {
+    return reaction.Response();
+  }
 }
 
-public class Phrase
+public class ShoutReaction : Reaction
 {
-  private string words;
-
-  public Phrase(string words)
+  public ShoutReaction(string phrase) : base(phrase)
   {
-    this.words = words;
   }
 
-  public PhraseType Type
+  public override bool Triggered()
   {
-    get
-    {
-      if (Shouted) return PhraseType.Shout;
-      if (Question) return PhraseType.Question;
-      if (Silent) return PhraseType.Silence;
-      return PhraseType.Statement;
-    }
-  }
-
-  private bool Shouted
-  {
-    get { return IsUppercase && ContainsLetters; }
+    return IsUppercase && ContainsLetters;
   }
 
   private bool IsUppercase
   {
-    get { return words.Equals(words.ToUpper()); }
+    get { return Phrase.Equals(Phrase.ToUpper()); }
   }
 
   private bool ContainsLetters
@@ -61,17 +79,63 @@ public class Phrase
     get
     {
       // match at least one unicode letter (posix not supported in .NET)
-      return Regex.IsMatch(words, @"\p{L}");
+      return Regex.IsMatch(Phrase, @"\p{L}");
     }
   }
 
-  private bool Question
+  public override string Response()
   {
-    get { return words.Trim().EndsWith("?"); }
+    return "Whoa, chill out!";
+  }
+}
+
+public class QuestionReaction : Reaction
+{
+  public QuestionReaction(string phrase) : base(phrase)
+  {
   }
 
-  private bool Silent
+  public override bool Triggered()
   {
-    get { return words.Trim().Equals(string.Empty); }
+    return Phrase.Trim().EndsWith("?");
+  }
+
+  public override string Response()
+  {
+    return "Sure.";
+  }
+}
+
+public class SilenceReaction : Reaction
+{
+  public SilenceReaction(string phrase) : base(phrase)
+  {
+  }
+
+  public override bool Triggered()
+  {
+    return Phrase.Trim().Equals(string.Empty);
+  }
+
+  public override string Response()
+  {
+    return "Fine. Be that way!";
+  }
+}
+
+public class IndifferentReaction : Reaction
+{
+  public IndifferentReaction() : base(string.Empty)
+  {
+  }
+
+  public override bool Triggered()
+  {
+    return true;
+  }
+
+  public override string Response()
+  {
+    return "Whatever.";
   }
 }
