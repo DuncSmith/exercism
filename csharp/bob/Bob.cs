@@ -1,77 +1,59 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 public class Bob
 {
+  private IDictionary<PhraseType, string> responses =
+    new Dictionary<PhraseType, string>
+    {
+      {PhraseType.Shout, "Whoa, chill out!"},
+      {PhraseType.Question, "Sure."},
+      {PhraseType.Silence, "Fine. Be that way!"},
+      {PhraseType.Statement, "Whatever."}
+    };
+
   public string Hey(string words)
   {
-    return React.ToShout(words)    |
-           React.ToQuestion(words) |
-           React.ToSilence(words)  |
-           React.WithIndifference();
+    return responses[new Phrase(words).Type];
   }
 }
 
-public static class React
+public enum PhraseType
 {
-  public static Reaction ToShout(string phrase)
-  {
-    return new ShoutReaction(phrase);
-  }
-
-  public static Reaction ToQuestion(string phrase)
-  {
-    return new QuestionReaction(phrase);
-  }
-
-  public static Reaction ToSilence(string phrase)
-  {
-    return new SilenceReaction(phrase);
-  }
-
-  public static Reaction WithIndifference()
-  {
-    return new IndifferentReaction();
-  }
+  Statement,
+  Shout,
+  Question,
+  Silence
 }
 
-public abstract class Reaction
+public class Phrase
 {
-  protected Reaction(string phrase)
+  private string words;
+
+  public Phrase(string words)
   {
-    Phrase = phrase;
+    this.words = words;
   }
 
-  protected string Phrase { get; private set; }
-
-  public abstract bool Triggered();
-
-  public abstract string Response();
-
-  public static Reaction operator |(Reaction first, Reaction second)
+  public PhraseType Type
   {
-    return first.Triggered() ? first : second;
+    get
+    {
+      if (Shouted) return PhraseType.Shout;
+      if (Question) return PhraseType.Question;
+      if (Silent) return PhraseType.Silence;
+      return PhraseType.Statement;
+    }
   }
 
-  public static implicit operator string(Reaction reaction)
+  private bool Shouted
   {
-    return reaction.Response();
-  }
-}
-
-public class ShoutReaction : Reaction
-{
-  public ShoutReaction(string phrase) : base(phrase)
-  {
-  }
-
-  public override bool Triggered()
-  {
-    return IsUppercase && ContainsLetters;
+    get { return IsUppercase && ContainsLetters; }
   }
 
   private bool IsUppercase
   {
-    get { return Phrase.Equals(Phrase.ToUpper()); }
+    get { return words.Equals(words.ToUpper()); }
   }
 
   private bool ContainsLetters
@@ -79,63 +61,17 @@ public class ShoutReaction : Reaction
     get
     {
       // match at least one unicode letter (posix not supported in .NET)
-      return Regex.IsMatch(Phrase, @"\p{L}");
+      return Regex.IsMatch(words, @"\p{L}");
     }
   }
 
-  public override string Response()
+  private bool Question
   {
-    return "Whoa, chill out!";
-  }
-}
-
-public class QuestionReaction : Reaction
-{
-  public QuestionReaction(string phrase) : base(phrase)
-  {
+    get { return words.Trim().EndsWith("?"); }
   }
 
-  public override bool Triggered()
+  private bool Silent
   {
-    return Phrase.Trim().EndsWith("?");
-  }
-
-  public override string Response()
-  {
-    return "Sure.";
-  }
-}
-
-public class SilenceReaction : Reaction
-{
-  public SilenceReaction(string phrase) : base(phrase)
-  {
-  }
-
-  public override bool Triggered()
-  {
-    return Phrase.Trim().Equals(string.Empty);
-  }
-
-  public override string Response()
-  {
-    return "Fine. Be that way!";
-  }
-}
-
-public class IndifferentReaction : Reaction
-{
-  public IndifferentReaction() : base(string.Empty)
-  {
-  }
-
-  public override bool Triggered()
-  {
-    return true;
-  }
-
-  public override string Response()
-  {
-    return "Whatever.";
+    get { return words.Trim().Equals(string.Empty); }
   }
 }
