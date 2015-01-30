@@ -1,6 +1,5 @@
 module Bob (responseFor) where
 
-import Data.List
 import Data.Char
 
 responseFor :: String -> String
@@ -10,11 +9,10 @@ responseFor said | silence said = "Fine. Be that way!"
                  | otherwise = "Whatever."
                    
 silence :: String -> Bool
-silence [] = True
-silence said = all (\x -> x == ' ') said
+silence said = all isSpace said
 
 shout :: String -> Bool
-shout said = said == map toUpper said
+shout said = (any isAlpha said) && not (any isLower said)
 
 question :: String -> Bool
-question said = isSuffixOf "?" said
+question said = (last said) == '?'
