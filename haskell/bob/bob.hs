@@ -12,7 +12,7 @@ silence :: String -> Bool
 silence said = all isSpace said
 
 shout :: String -> Bool
-shout said = (any isAlpha said) && not (any isLower said)
+shout said = any isAlpha said && all (not . isLower) said
 
 question :: String -> Bool
 question said = (last said) == '?'
