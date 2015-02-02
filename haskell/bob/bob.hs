@@ -9,10 +9,10 @@ responseFor said | silence said = "Fine. Be that way!"
                  | otherwise = "Whatever."
                    
 silence :: String -> Bool
-silence said = all isSpace said
+silence chars = all isSpace chars
 
 shout :: String -> Bool
-shout said = any isAlpha said && all (not . isLower) said
+shout chars = any isAlpha chars && all (not . isLower) chars
 
 question :: String -> Bool
-question said = (last said) == '?'
+question chars = (last chars) == '?'
