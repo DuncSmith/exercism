@@ -8,4 +8,4 @@ transcribe c | c == 'G' = 'C'
              | c == 'C' = 'G'
              | c == 'T' = 'A'
              | c == 'A' = 'U'
-             | otherwise = c
+             | otherwise = error "Invalid DNA nucleotide"
