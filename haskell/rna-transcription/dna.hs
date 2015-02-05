@@ -4,8 +4,9 @@ toRNA :: String -> String
 toRNA dna = map transcribe dna
 
 transcribe :: Char -> Char
-transcribe c | c == 'G' = 'C'
-             | c == 'C' = 'G'
-             | c == 'T' = 'A'
-             | c == 'A' = 'U'
-             | otherwise = error "Invalid DNA nucleotide"
+transcribe c = case c of
+                 'G' -> 'C'
+                 'C' -> 'G'
+                 'T' -> 'A'
+                 'A' -> 'U'
+                 _   -> error "Invalid DNA nucleotide"
