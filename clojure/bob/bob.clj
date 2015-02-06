@@ -1,4 +1,4 @@
-(ns string
+(ns clojure.string
   (:require [clojure.string :as string]))
 
 (defn alphabetic? [s]
@@ -10,12 +10,9 @@
 (defn ends-with? [c s]
   (= (last s) c))
 
-(defn blank? [s]
-  (string/blank? s))
-
 
 (ns phrase
-  (:require [string]))
+  (:require [clojure.string :as string]))
 
 (defn silence? [s]
   (string/blank? s))
