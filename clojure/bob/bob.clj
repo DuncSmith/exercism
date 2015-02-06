@@ -1,14 +1,27 @@
-(ns bob)
+(ns bob
+  (:require [clojure.string :as string]))
 
-(declare question? ends-with?)
+(defn- alphabetic? [s]
+  (re-find #"\p{Alpha}" s))
 
-(defn response-for [s] 
-  (cond
-    (question? s) "Sure." 
-    :else "Whatever."))
+(defn- upper-case? [s]
+  (= s (string/upper-case s)))
 
-(defn- question? [s] 
+(defn- ends-with? [c s]
+  (= (last s) c))
+  
+(defn- silence? [s]
+  (string/blank? s))
+  
+(defn- shout? [s]
+  (and (alphabetic? s) (upper-case? s)))
+  
+(defn- question? [s]
   (ends-with? \? s))
 
-(defn- ends-with? [c s] 
-  (= (last (seq s)) c))
+(defn response-for [s]
+  (cond
+    (silence? s) "Fine. Be that way!"
+    (shout? s) "Woah, chill out!"
+    (question? s) "Sure."
+    :else "Whatever."))
