@@ -7,14 +7,14 @@ public class ETL
     Dictionary<string, int> Transform(Dictionary<int, IList<string>> old)
   {
     return LetterValuePairs(old)
-      .ToDictionary(lvp => lvp.Key, lvp => lvp.Value);
+      .ToDictionary(lvp => (string)lvp.Letter, lvp => (int)lvp.Value);
   }
 
-  private static IEnumerable<KeyValuePair<string, int>> LetterValuePairs(
+  private static IEnumerable<dynamic> LetterValuePairs(
     Dictionary<int, IList<string>> old)
   {
     return old.SelectMany(
       kvp => kvp.Value.Select(
-        letter => new KeyValuePair<string, int>(letter.ToLower(), kvp.Key)));
+        letter => new {Letter = letter.ToLower(), Value = kvp.Key}));
   }
 }
