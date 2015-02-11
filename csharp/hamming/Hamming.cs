@@ -10,18 +10,18 @@ public class Hamming
   private static IEnumerable<char[]> PositionalPairs(
     string first, string second)
   {
-    for (var index = 0; index < first.Length; index++)
+    for (int index = 0; index < first.Length; index++)
     {
-      var firstNucleotide = first[index];
-      var secondNucleotide = index < second.Length ? second[index] : '\0';
-      yield return new[] {firstNucleotide, secondNucleotide};
+      char firstNucleotide = first[index];
+      char secondNucleotide = index < second.Length ? second[index] : '\0';
+      yield return new char[] {firstNucleotide, secondNucleotide};
     }
   }
 
   private static int CountMismatched(IEnumerable<char[]> pairs)
   {
-    var count = 0;
-    foreach (var pair in pairs)
+    int count = 0;
+    foreach (char[] pair in pairs)
       if (Mismatched(pair))
         count++;
     return count;
