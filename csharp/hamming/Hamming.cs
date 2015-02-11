@@ -11,11 +11,12 @@ public class Hamming
     string first, string second)
   {
     for (int index = 0; index < first.Length; index++)
-    {
-      char firstNucleotide = first[index];
-      char secondNucleotide = index < second.Length ? second[index] : '\0';
-      yield return new char[] {firstNucleotide, secondNucleotide};
-    }
+      yield return new char[] {CharAt(first, index), CharAt(second, index)};
+  }
+
+  private static char CharAt(string value, int index)
+  {
+    return index < value.Length ? value[index] : '\0';
   }
 
   private static int CountMismatched(IEnumerable<char[]> pairs)
