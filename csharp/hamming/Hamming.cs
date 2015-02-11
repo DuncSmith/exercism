@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class Hamming
 {
@@ -8,18 +7,18 @@ public class Hamming
     return CountMismatched(PositionalPairs(first, second));
   }
 
-  private static IEnumerable<Tuple<char, char>> PositionalPairs(
+  private static IEnumerable<char[]> PositionalPairs(
     string first, string second)
   {
     for (var index = 0; index < first.Length; index++)
     {
       var firstNucleotide = first[index];
       var secondNucleotide = index < second.Length ? second[index] : '\0';
-      yield return Tuple.Create(firstNucleotide, secondNucleotide);
+      yield return new[] {firstNucleotide, secondNucleotide};
     }
   }
 
-  private static int CountMismatched(IEnumerable<Tuple<char, char>> pairs)
+  private static int CountMismatched(IEnumerable<char[]> pairs)
   {
     var count = 0;
     foreach (var pair in pairs)
@@ -28,8 +27,8 @@ public class Hamming
     return count;
   }
 
-  private static bool Mismatched(Tuple<char, char> pair)
+  private static bool Mismatched(IList<char> pair)
   {
-    return pair.Item1 != pair.Item2;
+    return pair[0] != pair[1];
   }
 }
