@@ -157,18 +157,29 @@ public class WordCountTest
     [Test]
     public void With_apostrophes_as_quotes_multiple_times()
     {
-      var phrase = new Phrase("She said, 'let's meet at twelve o'clock'. 'OK', he replied.");
+      var phrase = new Phrase(
+        "She said, 'let's meet at twelve o'clock', " +
+        "to which he replied 'OK'. " +
+        "'See you then, then', she said, taking her leave.");
       var counts = new Dictionary<string, int> {
-            { "she", 1 },
-            { "said", 1 },
+            { "she", 2 },
+            { "said", 2 },
             { "let's", 1 },
             { "meet", 1 },
             { "at", 1 },
             { "twelve", 1 },
             { "o'clock", 1 },
-            { "ok", 1 },
+            { "to", 1 },
+            { "which", 1 },
             { "he", 1 },
-            { "replied", 1 }
+            { "replied", 1 },
+            { "ok", 1 },
+            { "see", 1 },
+            { "you", 1 },
+            { "then", 2 },
+            { "taking", 1 },
+            { "her", 1 },
+            { "leave", 1 }
         };
 
       Assert.That(phrase.WordCount(), Is.EqualTo(counts));

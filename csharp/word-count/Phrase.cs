@@ -4,19 +4,35 @@ using System.Text.RegularExpressions;
 
 public class Phrase
 {
-  private readonly string _words;
+  private const string WordBoundary = @"[^\w']";
+  private readonly string _text;
 
-  public Phrase(string words)
+  public Phrase(string text)
   {
-    _words = words;
+    _text = text;
   }
 
   public Dictionary<string, int> WordCount()
   {
-    return Regex.Split(_words, @"[^\w']")
-      .Select(word => word.Trim('\'').ToLower())
-      .Where(word => word != string.Empty)
-      .GroupBy(word => word)
-      .ToDictionary(group => group.Key, group => group.Count());
+    return Words.GroupBy(w => w).ToDictionary(g => g.Key, g => g.Count());
+  }
+
+  private IEnumerable<string> Words
+  {
+    get
+    {
+      return Regex.Split(_text, WordBoundary)
+        .Select(CleanedAndNormalizedWord).Where(WordNotEmpty);
+    }
+  }
+
+  private static string CleanedAndNormalizedWord(string word)
+  {
+    return word.Trim('\'').ToLower();
+  }
+
+  private static bool WordNotEmpty(string word)
+  {
+    return word != string.Empty;
   }
 }
