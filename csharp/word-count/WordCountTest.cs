@@ -153,4 +153,24 @@ public class WordCountTest
 
         Assert.That(phrase.WordCount(), Is.EqualTo(counts));
     }
+
+    [Test]
+    public void With_apostrophes_as_quotes_multiple_times()
+    {
+      var phrase = new Phrase("She said, 'let's meet at twelve o'clock'. 'OK', he replied.");
+      var counts = new Dictionary<string, int> {
+            { "she", 1 },
+            { "said", 1 },
+            { "let's", 1 },
+            { "meet", 1 },
+            { "at", 1 },
+            { "twelve", 1 },
+            { "o'clock", 1 },
+            { "ok", 1 },
+            { "he", 1 },
+            { "replied", 1 }
+        };
+
+      Assert.That(phrase.WordCount(), Is.EqualTo(counts));
+    }
 }
