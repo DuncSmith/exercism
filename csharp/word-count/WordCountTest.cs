@@ -24,7 +24,6 @@ public class WordCountTest
     Assert.That(phrase.WordCount(), Is.EqualTo(counts));
   }
 
-  [Ignore]
   [Test]
   public void Count_one_of_each()
   {

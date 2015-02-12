@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class Phrase
 {
@@ -11,8 +12,8 @@ public class Phrase
 
   public Dictionary<string, int> WordCount()
   {
-    return _text == string.Empty
-      ? new Dictionary<string, int>()
-      : new Dictionary<string, int>{{_text, 1}};
+    return _text.Split(' ')
+      .Where(word => word != string.Empty)
+      .ToDictionary(word => word, x => 1);
   }
 }
