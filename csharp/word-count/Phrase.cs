@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 public class Phrase
 {
@@ -12,7 +13,7 @@ public class Phrase
 
   public Dictionary<string, int> WordCount()
   {
-    return _text.Split(' ')
+    return Regex.Split(_text, @"\W")
       .Where(word => word != string.Empty)
       .GroupBy(word => word)
       .ToDictionary(group => group.Key, group => group.Count());

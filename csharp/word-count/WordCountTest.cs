@@ -54,7 +54,6 @@ public class WordCountTest
     Assert.That(phrase.WordCount(), Is.EqualTo(counts));
   }
 
-  [Ignore]
   [Test]
   public void Count_everything_just_once()
   {
@@ -67,6 +66,22 @@ public class WordCountTest
         {"horses", 1},
         {"and", 1},
         {"men", 1},
+      };
+
+    Assert.That(phrase.WordCount(), Is.EqualTo(counts));
+  }
+
+  [Test]
+  public void Handles_non_word_char_separators()
+  {
+    var phrase = new Phrase("one, two,three:four   five");
+    var counts = new Dictionary<string, int>
+      {
+        {"one", 1},
+        {"two", 1},
+        {"three", 1},
+        {"four", 1},
+        {"five", 1}
       };
 
     Assert.That(phrase.WordCount(), Is.EqualTo(counts));
@@ -89,7 +104,6 @@ public class WordCountTest
     Assert.That(phrase.WordCount(), Is.EqualTo(counts));
   }
 
-  [Ignore]
   [Test]
   public void Handles_cramped_list()
   {
