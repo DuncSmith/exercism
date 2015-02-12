@@ -12,8 +12,6 @@ public class WordCountTest
         new Dictionary<string, int>()));
   }
 
-
-  [Ignore]
   [Test]
   public void Count_one_word()
   {
