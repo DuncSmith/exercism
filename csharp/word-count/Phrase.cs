@@ -14,6 +14,7 @@ public class Phrase
   {
     return _text.Split(' ')
       .Where(word => word != string.Empty)
-      .ToDictionary(word => word, x => 1);
+      .GroupBy(word => word)
+      .ToDictionary(group => group.Key, group => group.Count());
   }
 }

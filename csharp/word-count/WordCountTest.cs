@@ -38,7 +38,6 @@ public class WordCountTest
     Assert.That(phrase.WordCount(), Is.EqualTo(counts));
   }
 
-  [Ignore]
   [Test]
   public void Count_multiple_occurrences()
   {
