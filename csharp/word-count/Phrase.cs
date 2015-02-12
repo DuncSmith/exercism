@@ -8,6 +8,6 @@ public class Phrase
 
   public Dictionary<string, int> WordCount()
   {
-    return null;
+    return new Dictionary<string, int>();
   }
 }
