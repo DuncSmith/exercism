@@ -15,7 +15,7 @@ public class Phrase
   {
     return Regex.Split(_text, @"\W")
       .Where(word => word != string.Empty)
-      .GroupBy(word => word)
+      .GroupBy(word => word.ToLower())
       .ToDictionary(group => group.Key, group => group.Count());
   }
 }

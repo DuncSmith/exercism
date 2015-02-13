@@ -118,7 +118,6 @@ public class WordCountTest
     Assert.That(phrase.WordCount(), Is.EqualTo(counts));
   }
 
-  [Ignore]
   [Test]
   public void Include_numbers()
   {
@@ -133,7 +132,6 @@ public class WordCountTest
     Assert.That(phrase.WordCount(), Is.EqualTo(counts));
   }
 
-  [Ignore]
   [Test]
   public void Normalize_case()
   {
