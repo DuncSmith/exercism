@@ -13,8 +13,9 @@ public class Phrase
 
   public Dictionary<string, int> WordCount()
   {
-    var split = Regex.Split(_text, @"[^\w']+'+[^\w']+|[^\w']+");
-    return split.Where(word => word != string.Empty)
+    return Regex.Split(_text, @"[^\w']")
+      .Select(word => word.Trim('\''))
+      .Where(word => word != string.Empty)
       .GroupBy(word => word.ToLower())
       .ToDictionary(group => group.Key, group => group.Count());
   }

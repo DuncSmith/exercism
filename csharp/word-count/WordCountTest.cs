@@ -87,7 +87,6 @@ public class WordCountTest
     Assert.That(phrase.WordCount(), Is.EqualTo(counts));
   }
 
-  [Ignore]
   [Test]
   public void Ignore_punctuation()
   {
@@ -172,7 +171,6 @@ public class WordCountTest
     Assert.That(phrase.WordCount(), Is.EqualTo(counts));
   }
 
-  [Ignore]
   [Test]
   public void With_apostrophes_as_quotes()
   {
