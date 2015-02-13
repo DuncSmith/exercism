@@ -160,7 +160,6 @@ public class WordCountTest
     Assert.That(phrase.WordCount(), Is.EqualTo(counts));
   }
 
-  [Ignore]
   [Test]
   public void With_free_standing_apostrophes()
   {
