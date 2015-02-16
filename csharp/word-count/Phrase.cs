@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -13,10 +13,43 @@ public class Phrase
 
   public Dictionary<string, int> WordCount()
   {
-    return Regex.Split(_text, @"[^\w']")
-      .Select(word => word.Trim('\''))
-      .Where(word => word != string.Empty)
-      .GroupBy(word => word.ToLower())
-      .ToDictionary(group => group.Key, group => group.Count());
+    return WordBoundary.Split(_text)
+      .Select(WithoutApostrophesAtEnds)
+      .Where(WordNotEmpty)
+      .GroupBy(LowerCaseWord)
+      .ToDictionary(GroupWord, GroupCount);
+  }
+
+  private static Regex WordBoundary
+  {
+    get
+    {
+      return new Regex(@"[^\w']", RegexOptions.Compiled);
+    }
+  }
+
+  private static string WithoutApostrophesAtEnds(string word)
+  {
+    return word.Trim('\'');
+  }
+
+  private static bool WordNotEmpty(string word)
+  {
+    return word != string.Empty;
+  }
+
+  private static string LowerCaseWord(string word)
+  {
+    return word.ToLower();
+  }
+
+  private static string GroupWord(IGrouping<string, string> grouping)
+  {
+    return grouping.Key;
+  }
+
+  private static int GroupCount(IGrouping<string, string> grouping)
+  {
+    return grouping.Count();
   }
 }
