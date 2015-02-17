@@ -1,8 +1,8 @@
 ﻿class Bob
   hey: (said) ->
-    return 'Woah, chill out!' if shouting(said)
+    return 'Woah, chill out!' if @shouting(said)
     'Whatever.'
 
-  shouting: (said) -> true
+  shouting: (said) -> said == said.toUpperCase()
 
 module.exports = Bob
