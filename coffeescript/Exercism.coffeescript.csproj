@@ -84,6 +84,8 @@
     <Content Include="example\example_test.spec.min.js.map">
       <DependentUpon>example_test.spec.min.js</DependentUpon>
     </Content>
+    <Content Include="bob\bob_test.spec.coffee" />
+    <Content Include="bob\README.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
