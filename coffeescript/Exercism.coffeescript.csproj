@@ -86,6 +86,7 @@
     </Content>
     <Content Include="bob\bob_test.spec.coffee" />
     <Content Include="bob\README.md" />
+    <Content Include="bob\bob.coffee" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
