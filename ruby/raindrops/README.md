@@ -9,6 +9,7 @@ Write a program that converts a number to a string, the contents of which depend
   just pass the number's digits straight through.
 
 ## Examples
+
 - 28's prime-factorization is 2, 2, 7.
   - In raindrop-speak, this would be a simple "Plong".
 - 1755 prime-factorization is 3, 3, 3, 5, 13.
@@ -20,4 +21,4 @@ Write a program that converts a number to a string, the contents of which depend
 
 ## Source
 
-A variation on a famous interview question intended to weed out the obviously incompetent. [view source](http://jumpstartlab.com)
+A variation on a famous interview question intended to weed out potential candidates. [view source](http://jumpstartlab.com)
