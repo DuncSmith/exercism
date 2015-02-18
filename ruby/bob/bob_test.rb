@@ -1,140 +1,133 @@
 require 'minitest/autorun'
+require_relative 'bob'
 
-begin
-  require_relative 'bob'
-rescue LoadError => e
-  eval("\"#{DATA.read}\n\"").split("\n.\n").each_with_index do |s,i|
-    if i > 0
-      puts "\t--- press enter to continue ---"
-      gets
-    end
-    puts "\n\n", s, "\n\n\n"
+class BobTest < MiniTest::Unit::TestCase
+  def bob
+    ::Bob.new
   end
-  exit!
-end
 
-class TeenagerTest < MiniTest::Unit::TestCase
-  attr_reader :teenager
-
-  def setup
-    @teenager = ::Bob.new
+  def feedback(text)
+    "Bob hears #{text.inspect}, and.."
   end
 
   def test_stating_something
-    assert_equal 'Whatever.', teenager.hey('Tom-ay-to, tom-aaaah-to.')
+    remark = 'Tom-ay-to, tom-aaaah-to.'
+    assert_equal 'Whatever.', bob.hey(remark), feedback(remark)
   end
 
   def test_shouting
-    assert_equal 'Woah, chill out!', teenager.hey('WATCH OUT!')
+    skip
+    remark = 'WATCH OUT!'
+    assert_equal 'Whoa, chill out!', bob.hey(remark), feedback(remark)
+  end
+
+  def test_shouting_gibberish
+    skip
+    remark = ('A'..'Z').to_a.shuffle[0, 10].join
+    assert_equal 'Whoa, chill out!', bob.hey(remark), feedback(remark)
   end
 
   def test_asking_a_question
-    assert_equal 'Sure.', teenager.hey('Does this cryogenic chamber make me look fat?')
+    skip
+    remark = 'Does this cryogenic chamber make me look fat?'
+    assert_equal 'Sure.', bob.hey(remark), feedback(remark)
   end
 
   def test_asking_a_numeric_question
-    assert_equal 'Sure.', teenager.hey('You are, what, like 15?')
+    skip
+    remark = 'You are, what, like 15?'
+    assert_equal 'Sure.', bob.hey(remark), feedback(remark)
+  end
+
+  def test_asking_gibberish
+    skip
+    remark = ('a'..'z').to_a.shuffle[0, 10].join << '?'
+    assert_equal 'Sure.', bob.hey(remark), feedback(remark)
   end
 
   def test_talking_forcefully
-    assert_equal 'Whatever.', teenager.hey("Let's go make out behind the gym!")
+    skip
+    remark = "Let's go make out behind the gym!"
+    assert_equal 'Whatever.', bob.hey(remark), feedback(remark)
   end
 
   def test_using_acronyms_in_regular_speech
-    assert_equal 'Whatever.', teenager.hey("It's OK if you don't want to go to the DMV.")
+    skip
+    remark = "It's OK if you don't want to go to the DMV."
+    assert_equal 'Whatever.', bob.hey(remark), feedback(remark)
   end
 
   def test_forceful_questions
-    assert_equal 'Woah, chill out!', teenager.hey('WHAT THE HELL WERE YOU THINKING?')
+    skip
+    remark = 'WHAT THE HELL WERE YOU THINKING?'
+    assert_equal 'Whoa, chill out!', bob.hey(remark), feedback(remark)
   end
 
   def test_shouting_numbers
-    assert_equal 'Woah, chill out!', teenager.hey('1, 2, 3 GO!')
+    skip
+    remark = '1, 2, 3 GO!'
+    assert_equal 'Whoa, chill out!', bob.hey(remark), feedback(remark)
   end
 
   def test_only_numbers
-    assert_equal 'Whatever.', teenager.hey('1, 2, 3')
+    skip
+    remark = '1, 2, 3'
+    assert_equal 'Whatever.', bob.hey(remark), feedback(remark)
   end
 
   def test_question_with_only_numbers
-    assert_equal 'Sure.', teenager.hey('4?')
+    skip
+    remark = '4?'
+    assert_equal 'Sure.', bob.hey(remark), feedback(remark)
   end
 
   def test_shouting_with_special_characters
-    assert_equal 'Woah, chill out!', teenager.hey('ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!')
+    skip
+    remark = 'ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!'
+    assert_equal 'Whoa, chill out!', bob.hey(remark), feedback(remark)
   end
 
   def test_shouting_with_no_exclamation_mark
-    assert_equal 'Woah, chill out!', teenager.hey('I HATE YOU')
+    skip
+    remark = 'I HATE YOU'
+    assert_equal 'Whoa, chill out!', bob.hey(remark), feedback(remark)
   end
 
   def test_statement_containing_question_mark
-    assert_equal 'Whatever.', teenager.hey('Ending with ? means a question.')
+    skip
+    remark = 'Ending with ? means a question.'
+    assert_equal 'Whatever.', bob.hey(remark), feedback(remark)
   end
 
   def test_prattling_on
-    assert_equal 'Sure.', teenager.hey("Wait! Hang on. Are you going to be OK?")
+    skip
+    remark = 'Wait! Hang on. Are you going to be OK?'
+    assert_equal 'Sure.', bob.hey(remark), feedback(remark)
   end
 
   def test_silence
-    assert_equal 'Fine. Be that way!', teenager.hey('')
+    skip
+    remark = ''
+    assert_equal 'Fine. Be that way!', bob.hey(remark), feedback(remark)
   end
 
   def test_prolonged_silence
-    assert_equal 'Fine. Be that way!', teenager.hey('    ')
+    skip
+    remark = ' ' * rand(1..10)
+    assert_equal 'Fine. Be that way!', bob.hey(remark), feedback(remark)
+  end
+
+  def test_alternate_silences
+    skip
+    remark = "\t" * rand(1..10)
+    assert_equal 'Fine. Be that way!', bob.hey(remark), feedback(remark)
   end
 
   def test_on_multiple_line_questions
-    assert_equal 'Whatever.', teenager.hey(%{
+    skip
+    remark = %(
 Does this cryogenic chamber make me look fat?
-no})
+no)
+    assert_equal 'Whatever.', bob.hey(remark), feedback(remark)
   end
 end
-__END__
-
-######## ########  ########   #######  ########
-##       ##     ## ##     ## ##     ## ##     ##
-##       ##     ## ##     ## ##     ## ##     ##
-######   ########  ########  ##     ## ########
-##       ##   ##   ##   ##   ##     ## ##   ##
-##       ##    ##  ##    ##  ##     ## ##    ##
-######## ##     ## ##     ##  #######  ##     ##
-
-
-#{e.backtrace.first} #{e.message}
-
-Welcome to your first ruby Exercism exercise!  This is your first error message.
-.
-First it tells you the name of the file where the error is occurring:
-
-    bob_test.rb
-.
-Then it tells you which line that error is on:
-
-    bob_test.rb:4
-.
-After that, it tells you the name of the method where the error is occurring:
-
-    in `require_relative'
-.
-Next, it tells you exactly what the error is:
-
-    #{e.message.split('--').first}
-.
-Finally, it tells you which file is missing:
-
-    #{e.message.split('--').last}
-.
-So the error is there on line 4 of this file (bob_test.rb).  What's on line 4?
-
-    require_relative 'bob'
-
-We are trying to require the file, and it isn't there.
-.
-You can fix the problem by creating an empty file named bob.rb inside
-of the ruby/bob directory.
-
-Then run this test again (ruby bob_test.rb).  Make all the tests pass,
-and submit your solution (exercism submit bob.rb).
-
-More instructions are in README.md in this directory. Good luck!

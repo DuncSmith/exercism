@@ -1,48 +1,24 @@
+#
+# This is a SKELETON file and has been provided to enable you to get working on the
+# first exercise more quickly.
+#
+
+use 5.006;
+use strict;
+use warnings;
+
 package Bob;
 
-use v5.18; # required for 'lexical_subs'
-use strict;
-no warnings "experimental::lexical_subs";
-use feature 'lexical_subs';
+our $VERSION = '1.000';
 
-my sub is_shouted; my sub is_question; my sub is_silence;
-my sub contains_alpha; my sub is_upper_case;
+use Exporter 5.57 qw(import);
 
-sub hey 
-{ 
-    my $message = shift;
+our @EXPORT_OK = qw(hey);
 
-    return 'Fine. Be that way!' if is_silence($message);
-    return 'Woah, chill out!' if is_shouted($message);
-    return 'Sure.' if is_question($message);
-    return 'Whatever.';
-}
-
-sub is_shouted 
-{ 
-    my $message = shift;
-
-    is_words($message) && is_upper_case($message);
-}
-
-sub is_question
-{
-    shift =~ /\?$/;
-}
-
-sub is_silence
-{
-    shift =~ /^\s*$/;
-}
-
-sub is_words
-{
-    shift =~ /\p{Letter}/;
-}
-
-sub is_upper_case
-{
-    shift !~ /\p{Lowercase}/;
+sub hey {
+#
+# YOUR CODE GOES HERE
+#
 }
 
 1;

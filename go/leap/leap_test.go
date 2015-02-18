@@ -1,38 +1,34 @@
 package leap
 
-import (
-	"testing"
-)
+import "testing"
 
-var testCases = []struct {
-	year        int
-	expected    bool
-	description string
-}{
-	{1996, true, "a vanilla leap year"},
-	{1997, false, "a normal year"},
-	{1900, false, "a century"},
-	{2400, true, "an exceptional century"},
-}
+// Define a function IsLeapYear(int) bool.
+//
+// Also define an exported TestVersion with a value that matches
+// the internal testVersion here.
+
+const testVersion = 1
+
+// Retired testVersions
+// (none) 4a9e144a3c5dc0d9773f4cf641ffe3efe48641d8
 
 func TestLeapYears(t *testing.T) {
+	if TestVersion != testVersion {
+		t.Fatalf("Found TestVersion = %v, want %v", TestVersion, testVersion)
+	}
 	for _, test := range testCases {
 		observed := IsLeapYear(test.year)
 		if observed != test.expected {
-			t.Fatalf("%v is %s", test.year, test.description)
+			t.Fatalf("IsLeapYear(%d) = %t, want %t (%s)",
+				test.year, observed, test.expected, test.description)
 		}
 	}
 }
 
 func BenchmarkLeapYears(b *testing.B) {
-	b.StopTimer()
-	for _, test := range testCases {
-		b.StartTimer()
-
-		for i := 0; i < b.N; i++ {
+	for i := 0; i < b.N; i++ {
+		for _, test := range testCases {
 			IsLeapYear(test.year)
 		}
-
-		b.StopTimer()
 	}
 }

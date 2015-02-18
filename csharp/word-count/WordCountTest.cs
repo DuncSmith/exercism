@@ -15,6 +15,7 @@ public class WordCountTest
         Assert.That(phrase.WordCount(), Is.EqualTo(counts));
     }
 
+    [Ignore]
     [Test]
     public void Count_one_of_each()
     {
@@ -28,6 +29,7 @@ public class WordCountTest
         Assert.That(phrase.WordCount(), Is.EqualTo(counts));
     }
 
+    [Ignore]
     [Test]
     public void Count_multiple_occurrences()
     {
@@ -43,6 +45,7 @@ public class WordCountTest
         Assert.That(phrase.WordCount(), Is.EqualTo(counts));
     }
 
+    [Ignore]
     [Test]
     public void Count_everything_just_once()
     {
@@ -59,6 +62,7 @@ public class WordCountTest
         Assert.That(phrase.WordCount(), Is.EqualTo(counts));
     }
 
+    [Ignore]
     [Test]
     public void Ignore_punctuation()
     {
@@ -74,6 +78,7 @@ public class WordCountTest
         Assert.That(phrase.WordCount(), Is.EqualTo(counts));
     }
 
+    [Ignore]
     [Test]
     public void Handles_cramped_list()
     {
@@ -87,6 +92,7 @@ public class WordCountTest
         Assert.That(phrase.WordCount(), Is.EqualTo(counts));
     }
 
+    [Ignore]
     [Test]
     public void Include_numbers()
     {
@@ -100,6 +106,7 @@ public class WordCountTest
         Assert.That(phrase.WordCount(), Is.EqualTo(counts));
     }
 
+    [Ignore]
     [Test]
     public void Normalize_case()
     {
@@ -111,6 +118,7 @@ public class WordCountTest
         Assert.That(phrase.WordCount(), Is.EqualTo(counts));
     }
 
+    [Ignore]
     [Test]
     public void With_apostrophes()
     {
@@ -126,6 +134,7 @@ public class WordCountTest
         Assert.That(phrase.WordCount(), Is.EqualTo(counts));
     }
 
+    [Ignore]
     [Test]
     public void With_free_standing_apostrophes()
     {
@@ -137,6 +146,7 @@ public class WordCountTest
         Assert.That(phrase.WordCount(), Is.EqualTo(counts));
     }
 
+    [Ignore]
     [Test]
     public void With_apostrophes_as_quotes()
     {
