@@ -1,7 +1,7 @@
 ﻿class Bob
   hey: (said) ->
     return 'Fine. Be that way!' if @silence(said)
-    return 'Woah, chill out!' if @shouting(said)
+    return 'Whoa, chill out!' if @shouting(said)
     return 'Sure.' if @question(said)
     'Whatever.'
 
