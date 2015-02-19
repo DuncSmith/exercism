@@ -2,8 +2,10 @@
 
 type DifferenceOfSquares(valueUpTo) =
 
-  member this.squareOfSums() = 0
+  static let square x = x * x
 
-  member this.sumOfSquares() = 0
+  member this.squareOfSums() = square (List.sum [1..valueUpTo])
 
-  member this.difference() = 0
+  member this.sumOfSquares() = List.sumBy square [1..valueUpTo]
+
+  member this.difference() = this.squareOfSums() - this.sumOfSquares()
