@@ -52,6 +52,8 @@
     <Content Include="packages.config" />
     <Compile Include="sum-of-multiples\SumOfMultiples.fs" />
     <Compile Include="sum-of-multiples\SumOfMultiplesTest.fs" />
+    <Compile Include="difference-of-squares\DifferenceOfSquares.fs" />
+    <Compile Include="difference-of-squares\DifferenceOfSquaresTest.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
