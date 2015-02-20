@@ -41,4 +41,8 @@ class ComplementTest < MiniTest::Unit::TestCase
   def test_dna_complement
     assert_equal 'ACTTGGGCTGTAC', Complement.of_rna('UGAACCCGACAUG')
   end
+
+  def test_dna_complement
+    assert_equal 'AAAA', Complement::Dna_nucleotides
+  end
 end

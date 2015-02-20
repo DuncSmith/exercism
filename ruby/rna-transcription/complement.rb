@@ -1,13 +1,21 @@
 class Complement
-  Dna_nucleotides = 'CGAT'
-  Rna_nucleotides = 'GCUA'
-  private_constant :Dna_nucleotides, :Rna_nucleotides
-  
   def self.of_dna(strand)
-    strand.tr(Dna_nucleotides, Rna_nucleotides)
+    strand.tr(dna_nucleotides, rna_nucleotides)
   end
 
   def self.of_rna(strand)
-    strand.tr(Rna_nucleotides, Dna_nucleotides)
+    strand.tr(rna_nucleotides, dna_nucleotides)
+  end
+
+  class << self
+    private
+  
+    def dna_nucleotides
+      'CGAT'
+    end
+    
+    def rna_nucleotides
+      'GCUA'
+    end
   end
 end
