@@ -1,14 +1,8 @@
-class Numeric
-  def seconds
-    return Rational(self, 86400)
-  end
-end
-
 class Gigasecond
-  Gigasecond = 1e+9.seconds
-  private_constant :Gigasecond
+  OneGigasecond = 1e+9
+  private_constant :OneGigasecond
   
   def self.from(birth_date)
-    (birth_date.to_datetime + Gigasecond).to_date
+    birth_date + OneGigasecond
   end  
 end
