@@ -5,18 +5,18 @@
     return 'Sure.' if question(said)
     'Whatever.'
 
-silence = (said) -> said.trim() is ''
+  silence = (said) -> said.trim() is ''
 
-shouting = (said) -> upperCase(said) and containsLetters(said)
+  shouting = (said) -> upperCase(said) and containsLetters(said)
 
-question = (said) -> endsWith('?', said)
+  question = (said) -> endsWith('?', said)
 
-upperCase = (said) -> said is said.toUpperCase()
+  upperCase = (said) -> said is said.toUpperCase()
 
-containsLetters = (said) -> said.match(/[A-Z]/i)
+  containsLetters = (said) -> said.match(/[A-Z]/i)
 
-endsWith = (ending, value) -> 
-  value.length >= ending.length and
-  value.lastIndexOf(ending) is (value.length - ending.length)
+  endsWith = (ending, value) -> 
+    value.length >= ending.length and
+    value.lastIndexOf(ending) is (value.length - ending.length)
 
 module.exports = Bob
