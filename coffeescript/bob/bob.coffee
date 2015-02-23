@@ -15,8 +15,6 @@
 
   containsLetters = (said) -> said.match(/[A-Z]/i)
 
-  endsWith = (ending, value) -> 
-    value.length >= ending.length and
-    value.lastIndexOf(ending) is (value.length - ending.length)
+  endsWith = (endChar, value) -> value.slice(-1) is endChar
 
 module.exports = Bob
