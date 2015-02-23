@@ -1,4 +1,5 @@
 var Bob = (function () {
+  'use strict';
   var Bob, isShout, isUpperCase, containsLetters, isQuestion, endsWith,
     isSilence;
 
