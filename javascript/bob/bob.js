@@ -1,6 +1,6 @@
 var Bob = (function () {
-  var Bob;
-  var isShout, isUpperCase, containsLetters, isQuestion, endsWith, isSilence;
+  var Bob, isShout, isUpperCase, containsLetters, isQuestion, endsWith,
+    isSilence;
 
   Bob = function () { return this; };
 
