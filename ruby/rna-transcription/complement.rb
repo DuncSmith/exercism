@@ -9,11 +9,11 @@ class Complement
 
   class << self
     private
-  
+
     def dna_nucleotides
       'CGAT'
     end
-    
+
     def rna_nucleotides
       'GCUA'
     end
