@@ -22,7 +22,7 @@ class Squares
   def numbers
     @numbers ||= (1..number_to)
   end
-  
+
   def square(x)
     x**2
   end
