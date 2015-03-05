@@ -10,9 +10,9 @@ class Fixnum
     end
     roman
   end
-  
+
   private
-  
+
   def numerals
     [
       [1000, 'M'],
