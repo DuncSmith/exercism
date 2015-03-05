@@ -26,8 +26,16 @@ class RomanTest < MiniTest::Unit::TestCase
     assert_equal 'VI', 6.to_roman
   end
 
+  def test_7
+    assert_equal 'VI', 6.to_roman
+  end
+
   def test_9
     assert_equal 'IX', 9.to_roman
+  end
+
+  def test_10
+    assert_equal 'X', 10.to_roman
   end
 
   def test_27
@@ -36,6 +44,10 @@ class RomanTest < MiniTest::Unit::TestCase
 
   def test_48
     assert_equal 'XLVIII', 48.to_roman
+  end
+
+  def test_50
+    assert_equal 'L', 50.to_roman
   end
 
   def test_59

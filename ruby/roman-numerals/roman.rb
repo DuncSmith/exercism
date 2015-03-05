@@ -1,11 +1,11 @@
 class Fixnum
   def to_roman
+    number = self
     roman = ''
-    remainder = self
-    numerals.each do |decimal, numeral|
-      while remainder >= decimal
+    numerals.each do |limit, numeral|
+      while number >= limit
         roman << numeral
-        remainder -= decimal
+        number -= limit
       end
     end
     roman
@@ -14,20 +14,20 @@ class Fixnum
   private
   
   def numerals
-    {
-      1000 => 'M',
-      900 => 'CM',
-      500 => 'D',
-      400 => 'CD',
-      100 => 'C',
-      90 => 'XC',
-      50 => 'L',
-      40 => 'XL',
-      10 => 'X',
-      9 => 'IX',
-      5 => 'V',
-      4 => 'IV',
-      1 => 'I'
-    }
+    [
+      [1000, 'M'],
+      [900, 'CM'],
+      [500, 'D'],
+      [400, 'CD'],
+      [100, 'C'],
+      [90, 'XC'],
+      [50, 'L'],
+      [40, 'XL'],
+      [10, 'X'],
+      [9, 'IX'],
+      [5, 'V'],
+      [4, 'IV'],
+      [1, 'I']
+    ]
   end
 end
