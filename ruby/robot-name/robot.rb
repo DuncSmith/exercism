@@ -19,7 +19,7 @@ class Robot
   def rand_letter
     rand_from_range ('A'..'Z')
   end
-  
+
   def rand_digit
     rand_from_range ('0'..'9')
   end
