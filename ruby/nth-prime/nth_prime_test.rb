@@ -7,22 +7,43 @@ class TestPrimes < MiniTest::Unit::TestCase
   end
 
   def test_second
-    skip
     assert_equal 3, Prime.nth(2)
   end
 
   def test_sixth_prime
-    skip
     assert_equal 13, Prime.nth(6)
   end
 
+  def test_eleventh_prime
+    assert_equal 31, Prime.nth(11)
+  end
+
+  def test_500th_prime
+    assert_equal 3571, Prime.nth(500)
+  end
+
+  def test_999th_prime
+    assert_equal 7907, Prime.nth(999)
+  end
+
+  def test_1000th_prime
+    assert_equal 7919, Prime.nth(1000)
+  end
+
   def test_big_prime
-    skip
+    assert_equal 104_743, Prime.nth(10_001)
+    assert_equal 104_743, Prime.nth(10_001)
+    assert_equal 104_743, Prime.nth(10_001)
+    assert_equal 104_743, Prime.nth(10_001)
+    assert_equal 104_743, Prime.nth(10_001)
+    assert_equal 104_743, Prime.nth(10_001)
+    assert_equal 104_743, Prime.nth(10_001)
+    assert_equal 104_743, Prime.nth(10_001)
+    assert_equal 104_743, Prime.nth(10_001)
     assert_equal 104_743, Prime.nth(10_001)
   end
 
   def test_weird_case
-    skip
     assert_raises ArgumentError do
       Prime.nth(0)
     end
