@@ -1,40 +1,55 @@
 class Robot
-  @names = []
-  class << self; attr_reader :names end
+  attr_reader :name
 
-  def name
-    @name ||= generate_unique_name
+  def initialize
+    reset
   end
 
   def reset
-    @name = nil
+    Robot.release_name(name)
+    self.name = Robot.next_name
   end
 
   private
 
-  def generate_unique_name
-    name = ''
-    loop { break unless Robot.names.include?(name = generate_name) }
-    Robot.names << name
-    name
-  end
+  attr_writer :name
 
-  def generate_name
-    name = ''
-    2.times { name << rand_letter }
-    3.times { name << rand_digit }
-    name
-  end
+  class << self
+    def next_name
+      throw 'All names in use' if names.empty?
+      names.pop
+    end
 
-  def rand_letter
-    rand_from_range(('A'..'Z'))
-  end
+    def release_name(name)
+      released_names.push(name) if name
+    end
 
-  def rand_digit
-    rand_from_range(('0'..'9'))
-  end
+    private
 
-  def rand_from_range(range)
-    range.to_a[rand(range.count)]
+    attr_writer :released_names
+
+    def released_names
+      @released_names ||= []
+    end
+
+    def names
+      @names ||= generate_all_possible_names
+      if @names.empty? && released_names.any?
+        # reverse so that reuse old released names in order released
+        @names = released_names.reverse
+        self.released_names = []
+      end
+      @names
+    end
+
+    def generate_all_possible_names
+      all_names = []
+      [*'A'..'Z'].repeated_permutation(2).map do |letters|
+        [*'0'..'9'].repeated_permutation(3).map do |digits|
+          all_names << (letters + digits).join('')
+        end
+      end
+      all_names.shuffle
+    end
   end
 end
