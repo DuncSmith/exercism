@@ -1,5 +1,5 @@
 class Robot
-  @names = {}
+  @names = []
   class << self; attr_reader :names end
 
   def name
@@ -14,8 +14,8 @@ class Robot
 
   def generate_unique_name
     name = ''
-    loop { break unless Robot.names.values.include?(name = generate_name) }
-    Robot.names[self] = name
+    loop { break unless Robot.names.include?(name = generate_name) }
+    Robot.names << name
     name
   end
 
