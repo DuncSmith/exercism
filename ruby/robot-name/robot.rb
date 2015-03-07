@@ -11,17 +11,17 @@ class Robot
 
   def generate_name
     name = ''
-    2.times {name << rand_letter}
-    3.times {name << rand_digit}
+    2.times { name << rand_letter }
+    3.times { name << rand_digit }
     name
   end
 
   def rand_letter
-    rand_from_range ('A'..'Z')
+    rand_from_range(('A'..'Z'))
   end
 
   def rand_digit
-    rand_from_range ('0'..'9')
+    rand_from_range(('0'..'9'))
   end
 
   def rand_from_range(range)
