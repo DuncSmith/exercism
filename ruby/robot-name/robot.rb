@@ -10,26 +10,21 @@ class Robot
   private
 
   def unique_name
-    rnd_char_sequence([letter, 2], [digit, 3])
+    name = ''
+    2.times {name << rand_letter}
+    3.times {name << rand_digit}
+    name
   end
-
-  def rnd_char_sequence(*specs)
-    specs.reduce('') do |sequence, spec|
-      sequence + rnd_sequence_of_range(spec[0], spec[1])
-    end
+  
+  def rand_letter
+    rand_from_range ('A'..'Z')
   end
-
-  def rnd_sequence_of_range(range, count)
-    (1..count).reduce('') do |sequence, _|
-      sequence + range.to_a[rand(range.count)]
-    end
+  
+  def rand_digit
+    rand_from_range ('0'..'9')
   end
-
-  def letter
-    ('A'..'Z')
-  end
-
-  def digit
-    ('0'..'9')
+  
+  def rand_from_range(range)
+    range.to_a[rand(range.count)]
   end
 end
