@@ -20,7 +20,9 @@ class Prime
     end
 
     def prime?(number)
-      primes.none? { |p| multiple?(number, p) }
+      upper_bound = Math.sqrt(number).floor
+      possible_divisors = primes.select {|p| p <= upper_bound }
+      possible_divisors.none? { |p| multiple?(number, p) }
     end
 
     def primes
