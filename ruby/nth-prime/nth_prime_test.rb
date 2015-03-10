@@ -31,6 +31,8 @@ class TestPrimes < MiniTest::Unit::TestCase
   end
 
   def test_big_prime
+    Prime.instance_eval('@primes = nil')
+    Prime.instance_eval('@next_candidate = nil')
     assert_equal 104_743, Prime.nth(10_001)
     assert_equal 104_743, Prime.nth(10_001)
     assert_equal 104_743, Prime.nth(10_001)
@@ -48,4 +50,17 @@ class TestPrimes < MiniTest::Unit::TestCase
       Prime.nth(0)
     end
   end
+  
+  # def test_time
+    # iterations = 100
+    # start_time = Time.now
+    # (1..iterations).each do |_|
+      # Prime.instance_eval('@primes = nil')
+      # Prime.instance_eval('@next_candidate = nil')
+      # Prime.nth(10_001)
+    # end
+    # end_time = Time.now
+    # duration = end_time - start_time
+    # puts duration / iterations
+  # end
 end
