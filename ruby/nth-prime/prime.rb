@@ -21,8 +21,12 @@ class Prime
 
     def prime?(number)
       upper_bound = Math.sqrt(number).floor
-      possible_divisors = primes.take_while { |p| p <= upper_bound }
-      possible_divisors.none? { |p| multiple?(number, p) }
+      is_prime = true
+      primes.each do |prime|
+        break if prime > upper_bound
+        break unless is_prime &&= !multiple?(number, prime)
+      end
+      is_prime
     end
 
     def primes
