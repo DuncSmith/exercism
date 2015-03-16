@@ -1,67 +1,65 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 public class School
 {
-  private readonly InitializingCollection<SortedList<string, string>> _roster =
-    new InitializingCollection<SortedList<string, string>>();
+  private readonly Dictionary<int, SortedList<string, string>> _roster
+    = new Dictionary<int, SortedList<string, string>>();
 
   public IList<List<string>> Roster
   {
     get
     {
-      return _roster.Select(grade => grade.Values.ToList()).ToList();
+      return RosterUpToGrade(MaxGrade);
     }
-  }
-
-  public void Add(string name, int grade)
-  {
-    _roster[grade].Add(name, name);
   }
 
   public List<string> Grade(int grade)
   {
-    return _roster[grade].Values.ToList();
+    return RosterUpToGrade(grade)[grade];
   }
-}
 
-public class InitializingCollection<T> : IEnumerable<T> where T : new()
-{
-  private readonly List<T> _internalList = new List<T>();
-
-  public IEnumerator<T> GetEnumerator()
+  public void Add(string name, int grade)
   {
-    return _internalList.GetEnumerator();
+    EnsureGradeInitialized(grade);
+    AddNameToGrade(name, grade);
   }
 
-  IEnumerator IEnumerable.GetEnumerator()
+  private IList<List<string>> RosterUpToGrade(int gradeTo)
   {
-    return ((IEnumerable) _internalList).GetEnumerator();
+    return 0.UpTo(gradeTo).Select(
+      grade =>
+        _roster.ContainsKey(grade)
+          ? _roster[grade].Values.ToList()
+          : new List<string>()).ToList();
   }
 
-  public T this[int index]
+  private int MaxGrade
   {
     get
     {
-      PadToIndex(index);
-      return _internalList[index];
-    }
-    set
-    {
-      PadToIndex(index);
-      _internalList[index] = value;
+      return _roster.Any() ? _roster.Keys.Max() : -1;
     }
   }
 
-  private void PadToIndex(int index)
+  private void EnsureGradeInitialized(int grade)
   {
-    while (IndexOutOfBounds(index))
-      _internalList.Add(new T());
+    if (!_roster.ContainsKey(grade))
+      _roster.Add(grade, new SortedList<string, string>());
   }
 
-  private bool IndexOutOfBounds(int index)
+  private void AddNameToGrade(string name, int grade)
   {
-    return _internalList.Count <= index;
+    _roster[grade].Add(name, name);
+  }
+}
+
+public static class Range
+{
+  public static IEnumerable<int> UpTo(this int from, int to)
+  {
+    return to < from
+      ? Enumerable.Empty<int>()
+      : Enumerable.Range(from, to - from + 1);
   }
 }
