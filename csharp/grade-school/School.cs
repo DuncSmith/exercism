@@ -1,45 +1,67 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 public class School
 {
-  private readonly List<SortedList<string, string>> _roster =
-    new List<SortedList<string, string>>();
+  private readonly InitializingCollection<SortedList<string, string>> _roster =
+    new InitializingCollection<SortedList<string, string>>();
 
   public IList<List<string>> Roster
   {
     get
     {
-      return _roster.Select(GradeAsList).ToList();
+      return _roster.Select(grade => grade.Values.ToList()).ToList();
     }
   }
 
   public void Add(string name, int grade)
   {
-    EnsureGradeInitialized(grade);
-    AddNameToGrade(name, grade);
+    _roster[grade].Add(name, name);
   }
 
   public List<string> Grade(int grade)
   {
-    return _roster.Count <= grade
-      ? new List<string>()
-      : GradeAsList(_roster[grade]);
+    return _roster[grade].Values.ToList();
+  }
+}
+
+public class InitializingCollection<T> : IEnumerable<T> where T : new()
+{
+  private readonly List<T> _internalList = new List<T>();
+
+  public IEnumerator<T> GetEnumerator()
+  {
+    return _internalList.GetEnumerator();
   }
 
-  private static List<string> GradeAsList(SortedList<string, string> grade)
+  IEnumerator IEnumerable.GetEnumerator()
   {
-    return grade.Values.ToList();
+    return ((IEnumerable) _internalList).GetEnumerator();
   }
 
-  private void EnsureGradeInitialized(int grade)
+  public T this[int index]
   {
-    while (_roster.Count <= grade)
-      _roster.Add(new SortedList<string, string>());
+    get
+    {
+      PadToIndex(index);
+      return _internalList[index];
+    }
+    set
+    {
+      PadToIndex(index);
+      _internalList[index] = value;
+    }
   }
 
-  private void AddNameToGrade(string name, int grade)
+  private void PadToIndex(int index)
   {
-    _roster[grade].Add(name, name);
+    while (IndexOutOfBounds(index))
+      _internalList.Add(new T());
+  }
+
+  private bool IndexOutOfBounds(int index)
+  {
+    return _internalList.Count <= index;
   }
 }
