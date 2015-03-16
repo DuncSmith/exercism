@@ -10,28 +10,21 @@ public class School
   {
     get
     {
-      return RosterUpToGrade(MaxGrade);
+      return 0.UpTo(MaxGrade).Select(Grade).ToList();
     }
   }
 
   public List<string> Grade(int grade)
   {
-    return RosterUpToGrade(grade)[grade];
+    return _roster.ContainsKey(grade)
+      ? _roster[grade].Values.ToList()
+      : new List<string>();
   }
 
   public void Add(string name, int grade)
   {
     EnsureGradeInitialized(grade);
     AddNameToGrade(name, grade);
-  }
-
-  private IList<List<string>> RosterUpToGrade(int gradeTo)
-  {
-    return 0.UpTo(gradeTo).Select(
-      grade =>
-        _roster.ContainsKey(grade)
-          ? _roster[grade].Values.ToList()
-          : new List<string>()).ToList();
   }
 
   private int MaxGrade
