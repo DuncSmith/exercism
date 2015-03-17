@@ -2,19 +2,24 @@
 
 type Bob(greeting : string) =
 
-  member this.hey() = 
-    if this.shouted() then "Whoa, chill out!"
-    else if this.question() then "Sure."
-    else if this.silence() then "Fine. Be that way!"
-    else "Whatever."
+  let uppercase(str:string) = str.ToUpper().Equals(str)
 
-  member private this.shouted() = 
-    this.uppercase() && not(this.lowercase())
+  let lowercase(str:string) = str.ToLower().Equals(str)
 
-  member private this.uppercase() = greeting.ToUpper().Equals(greeting)
+  let (|Shout|_|) (str : string) = 
+    if uppercase(str) && not(lowercase(str)) 
+    then Some("Whoa, chill out!")
+    else None
 
-  member private this.lowercase() = greeting.ToLower().Equals(greeting)
+  let (|Question|_|) (str : string) = 
+    if str.EndsWith("?") then Some("Sure.") else None
 
-  member private this.question() = greeting.EndsWith("?")
+  let (|Silence|_|) (str : string) = 
+    if str.Trim().Equals("") then Some("Fine. Be that way!") else None
 
-  member private this.silence() = greeting.Trim().Equals("")
+  member this.hey() =
+    match greeting with
+      | Shout response -> response
+      | Question response -> response
+      | Silence response -> response
+      | _ -> "Whatever."
