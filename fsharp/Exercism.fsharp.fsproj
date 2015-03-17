@@ -54,6 +54,8 @@
     <Compile Include="sum-of-multiples\SumOfMultiplesTest.fs" />
     <Compile Include="difference-of-squares\DifferenceOfSquares.fs" />
     <Compile Include="difference-of-squares\DifferenceOfSquaresTest.fs" />
+    <Compile Include="bob\Bob.fs" />
+    <Compile Include="bob\BobTest.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
