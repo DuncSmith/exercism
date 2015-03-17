@@ -2,22 +2,21 @@
 
 type Bob(greeting : string) =
 
+  let (|Is|_|) predicate x = if predicate(x) then Some() else None
+
   let uppercase(str : string) = str.ToUpper().Equals(str)
 
   let lowercase(str : string) = str.ToLower().Equals(str)
 
-  let someIf(condition) = if condition then Some() else None
+  let shout (str : string) = uppercase(str) && not(lowercase(str))
 
-  let (|Shout|_|) (str : string) =
-    someIf(uppercase(str) && not(lowercase(str)))
+  let question (str : string) = str.EndsWith("?")
 
-  let (|Question|_|) (str : string) = someIf(str.EndsWith("?"))
-
-  let (|Silence|_|) (str : string) = someIf(str.Trim().Equals(""))
+  let silence (str : string) = str.Trim().Equals("")
 
   member this.hey() =
     match greeting with
-    | Shout -> "Whoa, chill out!"
-    | Question -> "Sure."
-    | Silence -> "Fine. Be that way!"
+    | Is shout -> "Whoa, chill out!"
+    | Is question -> "Sure."
+    | Is silence -> "Fine. Be that way!"
     | _ -> "Whatever."
