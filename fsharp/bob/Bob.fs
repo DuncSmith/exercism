@@ -6,18 +6,18 @@ type Bob(greeting : string) =
 
   let lowercase(str:string) = str.ToLower().Equals(str)
 
+  let someIf(condition:bool) = if condition then Some() else None
+
   let (|Shout|_|) (str : string) =
-    if uppercase(str) && not(lowercase(str)) then Some() else None
+    someIf(uppercase(str) && not(lowercase(str)))
 
-  let (|Question|_|) (str : string) =
-    if str.EndsWith("?") then Some() else None
+  let (|Question|_|) (str : string) = someIf(str.EndsWith("?"))
 
-  let (|Silence|_|) (str : string) =
-    if str.Trim().Equals("") then Some() else None
+  let (|Silence|_|) (str : string) = someIf(str.Trim().Equals(""))
 
   member this.hey() =
     match greeting with
-      | Shout -> "Whoa, chill out!"
-      | Question -> "Sure."
-      | Silence -> "Fine. Be that way!"
-      | _ -> "Whatever."
+    | Shout -> "Whoa, chill out!"
+    | Question -> "Sure."
+    | Silence -> "Fine. Be that way!"
+    | _ -> "Whatever."
