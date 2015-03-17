@@ -2,11 +2,11 @@
 
 type Bob(greeting : string) =
 
-  let uppercase(str:string) = str.ToUpper().Equals(str)
+  let uppercase(str : string) = str.ToUpper().Equals(str)
 
-  let lowercase(str:string) = str.ToLower().Equals(str)
+  let lowercase(str : string) = str.ToLower().Equals(str)
 
-  let someIf(condition:bool) = if condition then Some() else None
+  let someIf(condition) = if condition then Some() else None
 
   let (|Shout|_|) (str : string) =
     someIf(uppercase(str) && not(lowercase(str)))
