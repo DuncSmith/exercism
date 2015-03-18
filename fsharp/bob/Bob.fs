@@ -14,9 +14,6 @@ type Bob(greeting : string) =
 
   let noneLowercase seq = seq |> Seq.forall (not << lowercase)
 
-  let both firstPredicate secondPredicate =
-    fun x -> firstPredicate x && secondPredicate x
-
   let (|Is|_|) predicate x = if predicate x then Some() else None
 
   let shout(str : string) = str |> (someUppercase -&- noneLowercase)
