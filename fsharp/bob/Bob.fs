@@ -2,15 +2,22 @@
 
 type Bob(greeting : string) =
 
-  let uppercase(str : string) = str.ToUpper().Equals(str)
+  let contains x seq = seq |> Seq.exists ((=) x)
 
-  let alpha(str : string) =
-    let alphas = ['a'..'z'] @ ['A'..'Z']
-    str |> Seq.exists (fun c -> alphas |> Seq.exists ((=) c))
+  let uppercase c = {'A'..'Z'} |> contains c
+
+  let lowercase c = {'a'..'z'} |> contains c
+
+  let someUppercase seq = seq |> Seq.exists uppercase
+
+  let noneLowercase seq = seq |> Seq.forall (not << lowercase)
+
+  let both firstPredicate secondPredicate =
+    fun x -> firstPredicate x && secondPredicate x
 
   let (|Is|_|) predicate x = if predicate x then Some() else None
 
-  let shout(str : string) = uppercase str && alpha str
+  let shout(str : string) = str |> both someUppercase noneLowercase
 
   let question(str : string) = str.EndsWith "?"
 
