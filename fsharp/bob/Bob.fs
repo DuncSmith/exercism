@@ -1,22 +1,22 @@
 ﻿module Bob
 
 module Char =
-  let isUppercase = (fun c -> Seq.exists ((=) c) {'A'..'Z'})
+  let isAlpha c = Seq.exists ((=) c) (['A'..'Z'] @ ['a'..'z'])
 
-  let isLowercase = (fun c -> Seq.exists ((=) c) {'a'..'z'})
+  let isLowercase c = Seq.exists ((=) c) {'a'..'z'}
 
-type Bob(greeting : string) =
-  let (|Is|_|) predicate x = if predicate x then Some() else None
+let (|Is|_|) predicate x = if predicate x then Some() else None
 
-  let shout(str : string) =
-    let someUppercase seq = Seq.exists Char.isUppercase seq
+type Bob(greeting) =
+  let shout str =
+    let someAlpha seq = Seq.exists Char.isAlpha seq
     let noneLowercase seq = not <| Seq.exists Char.isLowercase seq
-    someUppercase str && noneLowercase str
+    someAlpha str && noneLowercase str
 
-  let question(str : string) =
+  let question str =
     not <| Seq.isEmpty str && str |> Seq.last |> ((=) '?')
 
-  let silence(str : string) =
+  let silence str =
     str |> Seq.skipWhile ((=) ' ') |> Seq.isEmpty
 
   member this.hey() =
