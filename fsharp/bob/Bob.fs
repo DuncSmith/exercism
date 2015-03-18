@@ -1,6 +1,8 @@
 ﻿module Bob
 
 type Bob(greeting : string) =
+  let (-&-) (first : 'a -> bool) (second : 'a -> bool) =
+    fun x -> first x && second x
 
   let contains x seq = seq |> Seq.exists ((=) x)
 
@@ -17,7 +19,7 @@ type Bob(greeting : string) =
 
   let (|Is|_|) predicate x = if predicate x then Some() else None
 
-  let shout(str : string) = str |> both someUppercase noneLowercase
+  let shout(str : string) = str |> (someUppercase -&- noneLowercase)
 
   let question(str : string) = str.EndsWith "?"
 
