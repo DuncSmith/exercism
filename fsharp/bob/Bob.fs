@@ -9,8 +9,8 @@ let (|Is|_|) predicate x = if predicate x then Some() else None
 
 type Bob(greeting) =
   let shout str =
-    let someAlpha seq = Seq.exists Char.isAlpha seq
-    let noneLowercase seq = not <| Seq.exists Char.isLowercase seq
+    let someAlpha str = Seq.exists Char.isAlpha str
+    let noneLowercase str = not <| Seq.exists Char.isLowercase str
     someAlpha str && noneLowercase str
 
   let question str =
