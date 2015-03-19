@@ -1,19 +1,23 @@
 ﻿module Bob
 
-type Bob(greeting : string) =
+module Char =
+  let isAlpha c = Seq.exists ((=) c) (['A'..'Z'] @ ['a'..'z'])
 
-  let uppercase(str : string) = str.ToUpper().Equals(str)
+  let isLowercase c = Seq.exists ((=) c) {'a'..'z'}
 
-  let lowercase(str : string) = str.ToLower().Equals(str)
+let someIf condition = if condition then Some() else None
 
-  let someIf(condition) = if condition then Some() else None
+type Bob(greeting) =
+  let (|Shout|_|) str =
+    let someAlpha str = Seq.exists Char.isAlpha str
+    let noneLowercase str = not <| Seq.exists Char.isLowercase str
+    someIf(someAlpha str && noneLowercase str)
 
-  let (|Shout|_|) (str : string) =
-    someIf(uppercase(str) && not(lowercase(str)))
+  let (|Question|_|) (str : string) =
+    someIf(not <| Seq.isEmpty str && str |> Seq.last |> ((=) '?'))
 
-  let (|Question|_|) (str : string) = someIf(str.EndsWith("?"))
-
-  let (|Silence|_|) (str : string) = someIf(str.Trim().Equals(""))
+  let (|Silence|_|) (str : string) =
+    someIf(str |> Seq.skipWhile ((=) ' ') |> Seq.isEmpty)
 
   member this.hey() =
     match greeting with
