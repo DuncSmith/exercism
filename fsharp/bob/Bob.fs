@@ -1,6 +1,7 @@
 ﻿module Bob
 
 module Char =
+
   let isAlpha c = Seq.exists ((=) c) <| Seq.append {'A'..'Z'} {'a'..'z'}
 
   let isLowercase c = Seq.exists ((=) c) {'a'..'z'}
@@ -8,6 +9,7 @@ module Char =
 let someIf condition = if condition then Some() else None
 
 type Bob(greeting) =
+
   let (|Shout|_|) str =
     let someAlpha str = Seq.exists Char.isAlpha str
     let noneLowercase str = not <| Seq.exists Char.isLowercase str
