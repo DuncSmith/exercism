@@ -1,7 +1,7 @@
 ﻿module Bob
 
 module Char =
-  let isAlpha c = Seq.exists ((=) c) (['A'..'Z'] @ ['a'..'z'])
+  let isAlpha c = Seq.exists ((=) c) <| Seq.append {'A'..'Z'} {'a'..'z'}
 
   let isLowercase c = Seq.exists ((=) c) {'a'..'z'}
 
