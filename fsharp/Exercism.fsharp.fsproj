@@ -56,6 +56,8 @@
     <Compile Include="difference-of-squares\DifferenceOfSquaresTest.fs" />
     <Compile Include="bob\Bob.fs" />
     <Compile Include="bob\BobTest.fs" />
+    <Compile Include="space-age\SpaceAge.fs" />
+    <Compile Include="space-age\SpaceAgeTest.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
