@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'acronym'
 
-class AcronymTest < MiniTest::Unit::TestCase
+class AcronymTest < Minitest::Test
   def test_png
     assert_equal 'PNG', Acronym.abbreviate('Portable Network Graphics')
   end
