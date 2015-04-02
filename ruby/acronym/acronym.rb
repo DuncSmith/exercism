@@ -4,13 +4,19 @@ class Acronym
   end
 
   def abbreviation
-    component_words.map { |word| word.chars.first.upcase }.join('')
+    initials.join
   end
 
   private
 
+  attr_reader :phrase
+
   def initialize(phrase)
     @phrase = phrase
+  end
+
+  def initials
+    component_words.map { |w| w.chars.first.upcase }
   end
 
   def component_words
@@ -18,7 +24,7 @@ class Acronym
   end
 
   def words
-    @phrase.split(' ')
+    phrase.split(' ')
   end
 
   def decompose_word(word)
