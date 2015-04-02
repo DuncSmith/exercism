@@ -14,7 +14,7 @@ class Acronym
   end
 
   def component_words
-    words.map { |word| decompose_word(word) }.flatten
+    words.map(&method(:decompose_word)).flatten
   end
 
   def words
