@@ -4,7 +4,8 @@ using System.Linq;
 
 public class DNA
 {
-  private static readonly char[] ValidNucleotides = {'A', 'T', 'C', 'G'};
+  private static readonly char[] ValidNucleotides
+    = {'A', 'T', 'C', 'G'};
   private readonly string _nucleotides;
 
   public DNA(string nucleotides)
@@ -19,8 +20,9 @@ public class DNA
       var counts = _nucleotides.
         GroupBy(n => n).
         ToDictionary(g => g.Key, g => g.Count());
-      return ValidNucleotides.
-        ToDictionary(n => n, n => counts.ContainsKey(n) ? counts[n] : 0);
+      return ValidNucleotides.ToDictionary(
+        n => n,
+        n => counts.ContainsKey(n) ? counts[n] : 0);
     }
   }
 
