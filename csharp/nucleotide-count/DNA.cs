@@ -7,6 +7,7 @@ public class DNA
   private static readonly char[] ValidNucleotides
     = {'A', 'T', 'C', 'G'};
   private readonly string _nucleotides;
+  private Dictionary<char, int> _charCounts;
 
   public DNA(string nucleotides)
   {
@@ -17,12 +18,9 @@ public class DNA
   {
     get
     {
-      var counts = _nucleotides.
-        GroupBy(n => n).
-        ToDictionary(g => g.Key, g => g.Count());
       return ValidNucleotides.ToDictionary(
         n => n,
-        n => counts.ContainsKey(n) ? counts[n] : 0);
+        n => CharCounts.ContainsKey(n) ? CharCounts[n] : 0);
     }
   }
 
@@ -31,6 +29,17 @@ public class DNA
     if (!ValidNucleotides.Contains(nucleotide))
       throw new InvalidNucleotideException();
     return NucleotideCounts[nucleotide];
+  }
+
+  private Dictionary<char, int> CharCounts
+  {
+    get
+    {
+      return _charCounts ??
+             (_charCounts = _nucleotides.
+               GroupBy(n => n).
+               ToDictionary(g => g.Key, g => g.Count()));
+    }
   }
 }
 
