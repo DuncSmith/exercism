@@ -57,6 +57,8 @@
     <Compile Include="hamming\HammingTest.cs" />
     <Compile Include="leap\LeapTest.cs" />
     <Compile Include="leap\Year.cs" />
+    <Compile Include="nucleotide-count\DNA.cs" />
+    <Compile Include="nucleotide-count\NucleotideCountTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="word-count\Phrase.cs" />
     <Compile Include="word-count\WordCountTest.cs" />
@@ -68,6 +70,7 @@
     <None Include="grade-school\README.md" />
     <None Include="hamming\README.md" />
     <None Include="leap\README.md" />
+    <None Include="nucleotide-count\README.md" />
     <None Include="packages.config" />
     <None Include="word-count\README.md" />
   </ItemGroup>
