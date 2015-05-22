@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 
 [TestFixture]
@@ -10,7 +11,6 @@ public class PhoneNumberTest
         Assert.That(phone.Number, Is.EqualTo("1234567890"));
     }
 
-    [Ignore]
     [Test]
     public void Cleans_numbers_with_dots()
     {
@@ -18,7 +18,6 @@ public class PhoneNumberTest
         Assert.That(phone.Number, Is.EqualTo("1234567890"));
     }
 
-    [Ignore]
     [Test]
     public void Allows_us_country_code()
     {
@@ -26,7 +25,6 @@ public class PhoneNumberTest
         Assert.That(phone.Number, Is.EqualTo("1234567890"));
     }
 
-    [Ignore]
     [Test]
     public void Invalid_when_11_digits()
     {
@@ -34,7 +32,6 @@ public class PhoneNumberTest
         Assert.That(phone.Number, Is.EqualTo("0000000000"));
     }
 
-    [Ignore]
     [Test]
     public void Invalid_when_9_digits()
     {
@@ -42,7 +39,6 @@ public class PhoneNumberTest
         Assert.That(phone.Number, Is.EqualTo("0000000000"));
     }
 
-    [Ignore]
     [Test]
     public void Has_an_area_code()
     {
@@ -50,7 +46,6 @@ public class PhoneNumberTest
         Assert.That(phone.AreaCode, Is.EqualTo("123"));
     }
 
-    [Ignore]
     [Test]
     public void Formats_a_number()
     {
