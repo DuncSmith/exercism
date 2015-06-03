@@ -13,14 +13,16 @@ class Sieve
 
   def find_primes
     remainder = numbers
-    while remainder.any?
-      prime = remainder.first
-      remainder.drop(1).each do |n|
-        mark(n) if multiple?(prime, n)
-      end
-      remainder = numbers.drop(prime - 1).reject(&method(:marked?))
-    end
+    remainder = sieve(remainder) while remainder.any?
     numbers.reject(&method(:marked?))
+  end
+
+  def sieve(remainder)
+    prime = remainder.first
+    remainder.drop(1).each do |n|
+      mark(n) if multiple?(prime, n)
+    end
+    numbers.drop(prime - 1).reject(&method(:marked?))
   end
 
   def mark(number)
