@@ -1,6 +1,6 @@
 class Robot
   attr_reader :name
-  
+
   def initialize
     reset
   end
