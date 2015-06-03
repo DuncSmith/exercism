@@ -32,6 +32,11 @@ The Hamming distance is only defined for sequences of equal length. Hence you
 may assume that only sequences of equal length will be passed to your hamming
 distance function.
 
+Check out
+[Exercism Help](http://help.exercism.io/getting-started-with-lisp.html)
+for instructions to get started writing Common Lisp. That page will
+explain how to install and setup a Lisp implementation and how to run
+the tests.
 
 ## Source
 

@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+gem 'minitest', '>= 5.0.0'
 require 'minitest/autorun'
 require_relative 'rna_transcription'
 
@@ -53,11 +55,11 @@ class ComplementTest < Minitest::Test
 
   def test_dna_raises_argument_error
     skip
-    assert_raises(ArgumentError){ Complement.of_dna('U') }
+    assert_raises(ArgumentError) { Complement.of_dna('U') }
   end
 
   def test_rna_raises_argument_error
     skip
-    assert_raises(ArgumentError){ Complement.of_rna('T') }
+    assert_raises(ArgumentError) { Complement.of_rna('T') }
   end
 end

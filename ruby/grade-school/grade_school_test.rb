@@ -1,7 +1,9 @@
+#!/usr/bin/env ruby
+gem 'minitest', '>= 5.0.0'
 require 'minitest/autorun'
-require_relative 'school'
+require_relative 'grade_school'
 
-class SchoolTest < MiniTest::Unit::TestCase
+class SchoolTest < Minitest::Test
   attr_reader :school
 
   def setup
@@ -65,7 +67,7 @@ class SchoolTest < MiniTest::Unit::TestCase
     sorted = {
       3 => ['Kyle'],
       4 => %w(Christopher Jennifer),
-      6 => ['Kareem']
+      6 => ['Kareem'],
     }
     assert_equal sorted, school.to_hash
     assert_equal [3, 4, 6], school.to_hash.keys

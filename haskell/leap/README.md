@@ -23,6 +23,16 @@ phenomenon, go watch [this youtube video][video].
 
 [video]: http://www.youtube.com/watch?v=xX96xng7sAE
 
+Check out [Exercism
+Help](http://help.exercism.io/getting-started-with-haskell.html) for
+instructions to get started writing Haskell.
+
+## Running Tests
+
+Use `runhaskell` (included in the Haskell Platform) to compile and run your
+Haskell code.
+
+    $ runhaskell -Wall bob_test.hs
 
 ## Source
 

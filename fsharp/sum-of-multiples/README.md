@@ -1,19 +1,14 @@
-# Difference Of Squares
+# Sum Of Multiples
 
-Find the difference between the sum of the squares and the square of the sums of the first N natural numbers.
+Write a program that, given a number, can find the sum of all the multiples of 3 or 5 up to but not including that number.
 
-The sum of the squares of the first ten natural numbers is,
+If we list all the natural numbers below 10 that are multiples of 3 or
+5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
 
-    1**2 + 2**2 + ... + 10**2 = 385
-
-The square of the sum of the first ten natural numbers is,
-
-    (1 + 2 + ... + 10)**2 = 55**2 = 3025
-
-Hence the difference between the sum of the squares of the first ten
-natural numbers and the square of the sum is 3025 - 385 = 2640.
+Allow the program to be configured to find the sum of multiples of
+numbers other than 3 and 5.
 
 
 ## Source
 
-Problem 6 at Project Euler [view source](http://projecteuler.net/problem=6)
+A variation on Problem 1 at Project Euler [view source](http://projecteuler.net/problem=1)

@@ -1,17 +1,30 @@
 # Hello World
 
-Write a program that greets the user by name, or by saying "Hello world!" if no name is given.
+Write a program that greets the user by name, or by saying "Hello, World!" if no name is given.
 
-["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is the traditional first program for beginning programmers. As programmers mature, they eventually want to test their code.
+["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is the traditional first program for beginning programming in a new language.
 
-Here at Exercism we encourage [Test Driven Development](http://en.wikipedia.org/wiki/Test-driven_development) (TDD). Test Driven Development is where you write your tests before writing any functionality. This allows you to consider the requirements of the code, and any edge cases that you may need to support.
+**Note:** You can skip this exercise by running:
 
-Once you finish writing a test, you write the functionality to make it pass. When all the functionality is finished, you can write tests for your next feature. One of the best features of tests is that they become a safety net when making changes to the existing codebase.
+    exercism skip $LANGUAGE hello-world
 
-We encourage users to use TDD when solving problems to help form good coding habits,
-and help simulate working on **Real World™** projects.
+## Specification
 
-## A typical TDD workflow on Exercism:
+The `Hello World!` program will greet me, the caller.
+
+If I tell the program my name is Alice, it will greet me by saying "Hello, Alice!".
+
+If I neglect to give it my name, it will greet me by saying "Hello, World!"
+
+## Test-Driven Development
+
+As programmers mature, they eventually want to test their code.
+
+Here at Exercism we simulate [Test-Driven Development](http://en.wikipedia.org/wiki/Test-driven_development) (TDD), where you write your tests before writing any functionality. The simulation comes in the form of a pre-written test suite, which will signal that you have solved the problem.
+
+It will also provide you with a safety net to explore other solutions without breaking the functionality.
+
+### A typical TDD workflow on Exercism:
 
 1. Run the test file and pick one test that's failing.
 2. Write some code to fix the test you picked.
@@ -23,25 +36,38 @@ and help simulate working on **Real World™** projects.
 
 Submissions are encouraged to be general, within reason. Having said that, it's also important not to over-engineer a solution.
 
-It's important to remember that the goal is to make code as expressive and readable as we can. However, solutions to the hello-world exercise will be not be reviewed by a person, but by rikki- the robot, who will offer an encouraging word. 
+It's important to remember that the goal is to make code as expressive and readable as we can. However, solutions to the hello-world exercise will be not be reviewed by a person, but by rikki- the robot, who will offer an encouraging word.
 
-## Specification
+Refer to the [exercism help
+page](http://help.exercism.io/getting-started-with-ruby.html) at
+for ruby installation and learning resources.
 
-The `Hello World!` program will greet me, the caller.
-
-If I tell the program my name is Alice, it will greet me by saying "Hello, Alice!".
-
-If I neglect to give it my name, it will greet me by saying "Hello, world!"
-
-Refer exercism help page at http://help.exercism.io/getting-started-with-ruby.html for ruby installation and learning resources.
-
-For running the tests provided, you will need the Minitest gem. Open a terminal window and run the following command to install minitest:
+For running the tests provided, you will need the Minitest gem. Open a
+terminal window and run the following command to install minitest:
 
     gem install minitest
 
-In order to run the test, you can run the test file from the exercise directory. For example, if the test suite is called `hello_world_test.rb`, you can run the following command:
+If you would like color output, you can `require 'minitest/pride'` in
+the test file, or note the alternative instruction, below, for runnng
+the test file.
+
+
+In order to run the test, you can run the test file from the exercise
+directory. For example, if the test suite is called
+`hello_world_test.rb`, you can run the following command:
 
     ruby hello_world_test.rb
+
+To include color from the command line:
+
+    ruby -rminitest/pride hello_world_test.rb
+
+The test files may have the execution bit set so you may also be
+able to run it like this:
+
+    ./hello_world_test.rb
+
+
 
 ## Source
 

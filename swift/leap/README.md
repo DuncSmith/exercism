@@ -23,6 +23,12 @@ phenomenon, go watch [this youtube video][video].
 
 [video]: http://www.youtube.com/watch?v=xX96xng7sAE
 
+## Setup
+
+Go through the project setup instructions for Xcode using Swift:
+
+http://help.exercism.io/getting-started-with-swift.html
+
 
 ## Source
 

@@ -23,6 +23,10 @@ phenomenon, go watch [this youtube video][video].
 
 [video]: http://www.youtube.com/watch?v=xX96xng7sAE
 
+To run the tests simply run the command `go test` in the exercise directory.
+
+For more detailed info about the Go track see the [help
+page](http://help.exercism.io/getting-started-with-go.html).
 
 ## Source
 
