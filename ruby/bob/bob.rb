@@ -37,7 +37,7 @@ class Bob
 
   def reply_to(sentence)
     if sentence.shouted?
-      'Woah, chill out!'
+      'Whoa, chill out!'
     elsif sentence.question?
       'Sure.'
     elsif sentence.silent?
