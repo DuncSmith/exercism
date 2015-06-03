@@ -1,13 +1,17 @@
 class Robot
-  def name
-    @name ||= generate_name
+  attr_reader :name
+  
+  def initialize
+    reset
   end
 
   def reset
-    @name = nil
+    self.name = generate_name
   end
 
   private
+
+  attr_writer :name
 
   def generate_name
     (letters.sample(2) + digits.sample(3)).join
