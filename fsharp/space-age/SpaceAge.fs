@@ -2,7 +2,7 @@
 
 type SpaceAge(seconds : decimal) =
 
-  let secondsPerYear = 
+  let secondsPerYear =
     [
       "earth", 31557600m;
       "mercury", 7600543.81992m;
@@ -16,7 +16,7 @@ type SpaceAge(seconds : decimal) =
 
   let round2dp x = System.Math.Round(x |> float, 2)
 
-  let planetaryYears planet = 
+  let planetaryYears planet =
     round2dp <| (seconds / secondsPerYear.[planet]);
 
   member this.Seconds = seconds
