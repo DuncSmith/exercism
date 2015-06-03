@@ -12,7 +12,6 @@ public class AnagramTest
         Assert.That(detector.Match(words), Is.EquivalentTo(results));
     }
 
-    [Ignore]
     [Test]
     public void Detect_simple_anagram()
     {
@@ -22,7 +21,6 @@ public class AnagramTest
         Assert.That(detector.Match(words), Is.EquivalentTo(results));
     }
 
-    [Ignore]
     [Test]
     public void Detect_multiple_anagrams()
     {
@@ -32,7 +30,6 @@ public class AnagramTest
         Assert.That(detector.Match(words), Is.EquivalentTo(results));
     }
 
-    [Ignore]
     [Test]
     public void Does_not_confuse_different_duplicates()
     {
@@ -42,7 +39,6 @@ public class AnagramTest
         Assert.That(detector.Match(words), Is.EquivalentTo(results));
     }
 
-    [Ignore]
     [Test]
     public void Identical_word_is_not_anagram()
     {
@@ -52,7 +48,6 @@ public class AnagramTest
         Assert.That(detector.Match(words), Is.EquivalentTo(results));
     }
 
-    [Ignore]
     [Test]
     public void Eliminate_anagrams_with_same_checksum()
     {
@@ -62,7 +57,6 @@ public class AnagramTest
         Assert.That(detector.Match(words), Is.EquivalentTo(results));
     }
 
-    [Ignore]
     [Test]
     public void Eliminate_anagram_subsets()
     {
@@ -72,7 +66,6 @@ public class AnagramTest
         Assert.That(detector.Match(words), Is.EquivalentTo(results));
     }
 
-    [Ignore]
     [Test]
     public void Detect_anagrams()
     {
@@ -82,7 +75,6 @@ public class AnagramTest
         Assert.That(detector.Match(words), Is.EquivalentTo(results));
     }
 
-    [Ignore]
     [Test]
     public void Anagrams_are_case_insensitive()
     {
