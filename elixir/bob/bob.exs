@@ -2,7 +2,7 @@ defmodule Teenager do
   def hey(input) do
     cond do
       silence?(input) -> "Fine. Be that way!"
-      shout?(input) -> "Woah, chill out!"
+      shout?(input) -> "Whoa, chill out!"
       question?(input) -> "Sure."
       true -> "Whatever."
     end
