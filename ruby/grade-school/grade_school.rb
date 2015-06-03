@@ -9,7 +9,7 @@ class School
   end
 
   def grade(grade_number)
-    sort[grade_number] ? sort[grade_number].clone : []
+    sorted_grades[grade_number] ? sorted_grades[grade_number].clone : []
   end
 
   private
@@ -22,7 +22,7 @@ class School
     students.keys.sort
   end
 
-  def sort
+  def sorted_grades
     Hash[grade_numbers.map { |grade_number| sort_grade grade_number }]
   end
 
