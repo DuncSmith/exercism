@@ -1,4 +1,6 @@
 class Acronym
+  VERSION = 1
+
   def self.abbreviate(phrase)
     Acronym.new(phrase).abbreviation
   end
