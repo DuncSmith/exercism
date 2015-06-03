@@ -5,7 +5,12 @@ using System.Text.RegularExpressions;
 
 public class Bob
 {
-  private readonly IEnumerable<Func<string, Reaction>> reactionExpressions;
+  private readonly IEnumerable<Func<string, Reaction>> _reactionExpressions;
+
+  public static string Hey(string words)
+  {
+    return new Bob().Response(words);
+  }
 
   public Bob()
     : this(new Func<string, Reaction>[]
@@ -20,17 +25,17 @@ public class Bob
 
   public Bob(IEnumerable<Func<string, Reaction>> reactionExpressions)
   {
-    this.reactionExpressions = reactionExpressions;
+    _reactionExpressions = reactionExpressions;
   }
 
-  public string Hey(string words)
+  public string Response(string words)
   {
     return Reactions(words).Aggregate((r1, r2) => r1 | r2);
   }
 
   private IEnumerable<Reaction> Reactions(string words)
   {
-    return reactionExpressions.Select(re => re(words));
+    return _reactionExpressions.Select(re => re(words));
   }
 }
 
