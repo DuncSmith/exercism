@@ -15,22 +15,36 @@ class Sieve
     prime = 2
     numbers = (prime..limit).to_a
     while prime
-      numbers = sieve(numbers, prime)
+      numbers = SieveStep.new(numbers, prime).sieve
       prime = numbers.find { |n| n > prime }
     end
     numbers
   end
 
-  def sieve(numbers, prime)
-    known_primes(numbers, prime) +
-      candidate_primes(numbers, prime).reject { |n| (n % prime) == 0 }
-  end
+  class SieveStep
+    def initialize(partially_sieved, next_prime)
+      @numbers = partially_sieved
+      @prime = next_prime
+    end
 
-  def known_primes(values, limit)
-    values.take_while { |n| n <= limit }
-  end
+    def sieve
+      known_primes + candidate_primes.reject(&method(:multiple?))
+    end
 
-  def candidate_primes(values, limit)
-    values.drop_while { |n| n <= limit }
+    private
+
+    attr_reader :prime, :numbers
+
+    def known_primes
+      numbers.take_while { |n| n <= prime }
+    end
+
+    def candidate_primes
+      numbers.drop_while { |n| n <= prime }
+    end
+
+    def multiple?(number)
+      (number % prime) == 0
+    end
   end
 end
