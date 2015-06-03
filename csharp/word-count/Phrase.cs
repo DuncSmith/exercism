@@ -6,12 +6,17 @@ public class Phrase
 {
   private readonly string _text;
 
+  public static Dictionary<string, int> WordCount(string text)
+  {
+    return new Phrase(text).CountWords();
+  }
+
   public Phrase(string text)
   {
     _text = text;
   }
 
-  public Dictionary<string, int> WordCount()
+  public Dictionary<string, int> CountWords()
   {
     return WordPattern.Matches(_text).Cast<Match>()
       .Select(m => m.Value.ToLower())
@@ -31,7 +36,7 @@ public class Phrase
                \W') #  - any non-word character and apostrophe.
                   ( # A word is:
                 \w| #  - single word character, or
-        \w[\w']*\w) #  - 2 or more word or apostrophe characters, 
+        \w[\w']*\w) #  - 2 or more word or apostrophe characters,
                     #    starting and ending with a word character
                 (?= # A word is followed by:
                '\W| #  - an apostrophe and any non-word character, or
