@@ -19,8 +19,10 @@ end
 # Crude patch to add to_h for Ruby version < 2.1
 module ArrayShim
   def to_h
-    Hash[self]
+    # prefer pre-defined method however it was added
+    defined?(super) ? super : Hash[self]
   end
 end
-# included to_h lower precedence so prefers any existing instance method
+# included to_h will not replace any existing to_h instance method
+# unless existing was also included from a module
 Array.send :include, ArrayShim
