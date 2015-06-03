@@ -4,7 +4,7 @@ import Data.Char
 
 responseFor :: String -> String
 responseFor said | silence said = "Fine. Be that way!"
-                 | shout said = "Woah, chill out!"
+                 | shout said = "Whoa, chill out!"
                  | question said = "Sure."
                  | otherwise = "Whatever."
                    
