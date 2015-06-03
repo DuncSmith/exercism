@@ -31,6 +31,6 @@
 (defn response-for [s]
   (cond
     (phrase/silence? s) "Fine. Be that way!"
-    (phrase/shout? s) "Woah, chill out!"
+    (phrase/shout? s) "Whoa, chill out!"
     (phrase/question? s) "Sure."
     :else "Whatever."))
