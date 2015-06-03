@@ -1,4 +1,5 @@
 class Gigasecond
+  VERSION = 1
   One_gigasecond = 1e+9
   private_constant :One_gigasecond
   
