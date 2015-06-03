@@ -1,5 +1,5 @@
 class HelloWorld
-  def self.hello(name)
-    "Hello, #{name.empty? ? 'world' : name}!"
+  def self.hello(name = nil)
+    "Hello, #{name || 'World'}!"
   end
 end
