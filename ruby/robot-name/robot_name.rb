@@ -10,21 +10,14 @@ class Robot
   private
 
   def generate_name
-    name = ''
-    2.times { name << rand_letter }
-    3.times { name << rand_digit }
-    name
+    (letters.sample(2) + digits.sample(3)).join
   end
 
-  def rand_letter
-    rand_from_range(('A'..'Z'))
+  def letters
+    ('A'..'Z').to_a
   end
 
-  def rand_digit
-    rand_from_range(('0'..'9'))
-  end
-
-  def rand_from_range(range)
-    range.to_a[rand(range.count)]
+  def digits
+    ('0'..'9').to_a
   end
 end
