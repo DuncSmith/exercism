@@ -1,4 +1,8 @@
 class Year
+  def self.leap?(number)
+    Year.new(number).leap?
+  end
+
   def initialize(number)
     @number = number
   end
