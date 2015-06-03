@@ -1,6 +1,6 @@
 class Sieve
   def initialize(limit)
-    @numbers = (2..limit).to_a
+    @limit = limit
   end
 
   def primes
@@ -9,31 +9,28 @@ class Sieve
 
   private
 
-  attr_reader :numbers
+  attr_reader :limit
 
   def find_primes
-    remainder = numbers
-    remainder = sieve(remainder) while remainder.any?
-    numbers.reject(&method(:marked?))
-  end
-
-  def sieve(remainder)
-    prime = remainder.first
-    remainder.drop(1).each do |n|
-      mark(n) if multiple?(prime, n)
+    prime = 2
+    numbers = (prime..limit).to_a
+    while prime
+      numbers = sieve(numbers, prime)
+      prime = numbers.find { |n| n > prime }
     end
-    numbers.drop(prime - 1).reject(&method(:marked?))
+    numbers
   end
 
-  def mark(number)
-    numbers[number - 2] = 0
+  def sieve(numbers, prime)
+    known_primes(numbers, prime) +
+      candidate_primes(numbers, prime).reject { |n| (n % prime) == 0 }
   end
 
-  def marked?(number)
-    number == 0
+  def known_primes(values, limit)
+    values.take_while { |n| n <= limit }
   end
 
-  def multiple?(divisor, number)
-    (number % divisor) == 0
+  def candidate_primes(values, limit)
+    values.drop_while { |n| n <= limit }
   end
 end
