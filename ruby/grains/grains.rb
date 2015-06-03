@@ -1,4 +1,12 @@
 class Grains
+  def self.square(number)
+    Grains.new.square(number)
+  end
+
+  def self.total
+    Grains.new.total
+  end
+
   def initialize
     @squares = [0, 1]
   end
