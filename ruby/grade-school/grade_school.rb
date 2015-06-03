@@ -1,5 +1,5 @@
 class School
-  def db
+  def to_hash
     # deep copy to also clone arrays of students in grades
     Hash[grade_numbers.map { |grade_number| clone_grade grade_number }]
   end
@@ -9,11 +9,7 @@ class School
   end
 
   def grade(grade_number)
-    get_grade(grade_number).clone
-  end
-
-  def sort
-    Hash[grade_numbers.map { |grade_number| sort_grade grade_number }]
+    sort[grade_number] ? sort[grade_number].clone : []
   end
 
   private
@@ -24,6 +20,10 @@ class School
 
   def grade_numbers
     students.keys.sort
+  end
+
+  def sort
+    Hash[grade_numbers.map { |grade_number| sort_grade grade_number }]
   end
 
   def sort_grade(grade_number)
