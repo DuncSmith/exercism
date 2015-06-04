@@ -19,7 +19,7 @@ class Sieve
   end
 
   def sieve(primes, possible_primes)
-    prime, *possibles = *possible_primes
-    [primes + [prime], possibles.reject { |n| n % prime == 0 }]
+    prime, *possible = *possible_primes
+    [primes + [prime], possible.reject { |n| n % prime == 0 }]
   end
 end
