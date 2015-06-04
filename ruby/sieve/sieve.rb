@@ -12,18 +12,15 @@ class Sieve
   attr_reader :limit
 
   def find_primes
-    prime = 2
-    numbers = (prime..limit).to_a
-    while prime
-      numbers = sieve(numbers, prime)
-      prime = numbers.find { |n| n > prime }
-    end
+    numbers = ((prime = 2)..limit)
+    (numbers, prime) = sieve(numbers, prime) while prime
     numbers
   end
 
   def sieve(numbers, prime)
     known_primes = numbers.take_while { |n| n <= prime }
-    candidate_primes = numbers.drop_while { |n| n <= prime }
-    known_primes + candidate_primes.reject { |n| n % prime == 0 }
+    possible_primes = numbers.drop_while { |n| n <= prime }
+                      .reject { |n| n % prime == 0 }
+    [known_primes + possible_primes, possible_primes.first]
   end
 end
