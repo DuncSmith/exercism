@@ -22,9 +22,9 @@ class Sieve
   end
 
   def sieve(numbers, prime)
-    known_primes = -> { numbers.take_while { |n| n <= prime } }
-    candidate_primes = -> { numbers.drop_while { |n| n <= prime } }
+    known_primes = numbers.take_while { |n| n <= prime }
+    candidate_primes = numbers.drop_while { |n| n <= prime }
     multiple = ->(n) { (n % prime) == 0 }
-    known_primes[] + candidate_primes[].reject(&multiple)
+    known_primes + candidate_primes.reject(&multiple)
   end
 end
