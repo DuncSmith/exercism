@@ -4,18 +4,12 @@ class Sieve
   end
 
   def primes
-    @primes || find_primes
+    @primes || sieve((2..limit).to_a, 2)
   end
 
   private
 
   attr_reader :limit
-
-  def find_primes
-    prime = 2
-    numbers = (prime..limit).to_a
-    sieve(numbers, prime)
-  end
 
   def sieve(numbers, prime)
     return numbers unless prime
