@@ -13,8 +13,8 @@ class Sieve
 
   def find_primes
     numbers = (2..limit).to_a
-    while (multiple = prime = next_prime(numbers, prime))
-      mark(numbers, multiple) until (multiple += prime) > limit
+    while (prime = next_prime(numbers, prime))
+      mark_multiples(numbers, prime)
     end
     numbers.keep_if(&method(:unmarked?))
   end
@@ -24,8 +24,9 @@ class Sieve
     numbers.drop(prime - 1).find(&method(:unmarked?))
   end
 
-  def mark(numbers, number)
-    numbers[number - 2] = 0
+  def mark_multiples(numbers, prime)
+    multiple = prime
+    numbers[multiple - 2] = 0 until (multiple += prime) > limit
   end
 
   def unmarked?(number)
