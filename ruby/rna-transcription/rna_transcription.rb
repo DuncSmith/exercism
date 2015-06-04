@@ -13,13 +13,15 @@ class Complement
     private
 
     def validate_dna(strand)
-      throw "Invalid" unless validate(strand, dna_nucleotides)
+      return if validate(strand, dna_nucleotides)
+      fail(ArgumentError, 'Invalid DNA strand')
     end
 
     def validate_rna(strand)
-      throw "Invalid" unless validate(strand, rna_nucleotides)
+      return if validate(strand, rna_nucleotides)
+      fail(ArgumentError, 'Invalid RNA strand')
     end
-    
+
     def validate(strand, nucleotides)
       strand.chars.all? { |c| nucleotides.include? c }
     end
