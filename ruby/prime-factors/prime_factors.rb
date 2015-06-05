@@ -6,18 +6,8 @@ module PrimeFactors
     Prime.each(number) do |prime|
       break if number == 1
       factors << number && break if Math.sqrt(number) < prime
-      (factors_for_prime, number) = factor_by_prime(number, prime)
-      factors += factors_for_prime
+      factors << prime && number /= prime while number % prime == 0
     end
     factors
-  end
-
-  def self.factor_by_prime(number, prime)
-    factors = []
-    while number % prime == 0
-      number /= prime
-      factors << prime
-    end
-    [factors, number]
   end
 end
