@@ -15,6 +15,18 @@ module PrimeFactors
       a + E.generate_while(divisible, &factor)
     end
   end
+  
+  def self.for_lh(number)
+    factors = []
+    Prime.each(number) do |prime|
+      break if number < prime
+      while number % prime == 0
+        number /= prime
+        factors << prime
+      end
+    end
+    factors
+  end
 end
 
 module EnumerableExtensions
@@ -52,74 +64,22 @@ module EnumerableExtensions
   end
 end
 
-n = 1_000
-limit = 10_000
-stop = limit / 2
-result1 = 0
-result2 = 0
-result3 = 0
-result4 = 0
-result5 = 0
+n = 10000
+number = 901_255 # 93_819_012_551
+result_ext = []
+result_lh = []
 Benchmark.bmbm do |x|
-  x.report('inject_until') do
+  x.report('ext') do
     n.times do
-      result1 = EnumerableExtensions.inject_until(
-        ->(_, e) { e > stop }, (0...limit), 0) do |a, e|
-        a + e
-      end
+      result_ext = PrimeFactors.for(number)
     end
   end
-
-  x.report('reduce_until') do
+  
+  x.report('lh') do
     n.times do
-      result2 = EnumerableExtensions.reduce_until(
-        ->(_, e) { e > stop }, (0...limit), 0) do |a, e|
-        a + e
-      end
-    end
-  end
-
-  x.report('reduce') do
-    n.times do
-      result3 = (0...limit).take_while { |e| e <= stop }
-                .reduce(0) do |a, e|
-        a + e
-      end
-    end
-  end
-
-  x.report('ext inject_until') do
-    n.times do
-      range = (0...limit).extend(EnumerableExtensions)
-      result4 = range.inject_until(->(_, e) { e > stop }, 0) do |a, e|
-        a + e
-      end
-    end
-  end
-
-  x.report('ext reduce_until') do
-    n.times do
-      range = (0...limit).extend(EnumerableExtensions)
-      result5 = range.reduce_until(->(_, e) { e > stop }, 0) do |a, e|
-        a + e
-      end
-    end
-  end
-
-  x.report('long hand') do
-    n.times do
-      result6 = 0
-      (0...limit).each do |e|
-        break if e > stop
-        result6 += e
-      end
+      result_lh = PrimeFactors.for_lh(number)
     end
   end
 end
-
-puts "#{result1}"
-puts "#{result2}"
-puts "#{result3}"
-puts "#{result4}"
-puts "#{result5}"
-puts "#{result6}"
+puts "#{result_ext}"
+puts "#{result_lh}"
