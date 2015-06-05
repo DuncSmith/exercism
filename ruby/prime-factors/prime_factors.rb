@@ -37,6 +37,16 @@ module PrimeFactors
       factors += factors_for_prime
     end
     factors
+  end  
+  
+  def self.for_tidy(number)
+    factors = []
+    Prime.each(number) do |prime|
+      break if number == 1
+      factors << number && break if Math.sqrt(number) < prime
+      factors << prime && number /= prime while number % prime == 0
+    end
+    factors
   end
 
   def self.factor_by_prime(number, prime)
@@ -84,17 +94,18 @@ module EnumerableExtensions
   end
 end
 
-n = 100
-number = 93_819_012_551 # 901_255
-result_ext = []
+n = 10
+number = 799_448_786_163 # 93_819_012_551 # 901_255
+# result_ext = []
 result_lh = []
 result_sqrt = []
+result_tidy = []
 Benchmark.bmbm do |x|
-  x.report('ext') do
-    n.times do
-      result_ext = PrimeFactors.for(number)
-    end
-  end
+  # x.report('ext') do
+    # n.times do
+      # result_ext = PrimeFactors.for(number)
+    # end
+  # end
   
   x.report('lh') do
     n.times do
@@ -107,7 +118,14 @@ Benchmark.bmbm do |x|
       result_sqrt = PrimeFactors.for_sqrt(number)
     end
   end
+  
+  x.report('tidy') do
+    n.times do
+      result_tidy = PrimeFactors.for_tidy(number)
+    end
+  end
 end
-puts "#{result_ext}"
+# puts "#{result_ext}"
 puts "#{result_lh}"
 puts "#{result_sqrt}"
+puts "#{result_tidy}"
