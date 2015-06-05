@@ -20,23 +20,24 @@ class PhoneNumber
 
   private
 
-  attr_reader :unclean_number
+  attr_reader :unclean_number, :number_match
 
   def clean_number
-    @clean_number ||= process_number
+    @clean_number ||=
+      OpenStruct.new(valid_number? ? matched_number : invalid_number)
   end
 
-  def process_number
-    OpenStruct.new(
-      if unclean_number =~ phone_number_pattern
-        {
-          area_code: Regexp.last_match['area_code'],
-          prefix: Regexp.last_match[:prefix],
-          line: Regexp.last_match[:line]
-        }
-      else
-        { area_code: '000', prefix: '000', line: '0000' }
-      end)
+  def valid_number?
+    return false unless unclean_number =~ phone_number_pattern
+    @number_match = Regexp.last_match
+  end
+
+  def matched_number
+    Hash[number_match.names.map { |n| [n.to_sym, number_match[n]] }]
+  end
+
+  def invalid_number
+    { area_code: '000', prefix: '000', line: '0000' }
   end
 
   def phone_number_pattern
