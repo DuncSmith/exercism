@@ -1,9 +1,4 @@
-require 'ostruct'
-require 'forwardable'
-
 class PhoneNumber
-  extend Forwardable
-
   def initialize(number)
     @unclean_number = number
   end
@@ -16,39 +11,48 @@ class PhoneNumber
     "(#{area_code}) #{prefix}-#{line}"
   end
 
-  def_delegators :clean_number, :area_code, :prefix, :line
+  def area_code
+    clean_number[-10, 3]
+  end
+
+  def prefix
+    clean_number[-7, 3]
+  end
+
+  def line
+    clean_number[-4, 4]
+  end
 
   private
 
-  attr_reader :unclean_number, :number_match
+  attr_reader :unclean_number
 
   def clean_number
-    @clean_number ||=
-      OpenStruct.new(valid_number? ? matched_number : invalid_number)
+    @clean_number ||= valid_number? ? stripped_number : invalid_number
   end
 
   def valid_number?
-    return false unless unclean_number =~ phone_number_pattern
-    @number_match = Regexp.last_match
+    only_digits? && (national_us_number? || international_us_number?)
   end
 
-  def matched_number
-    number_match.names.map { |n| [n.to_sym, number_match[n]] }.to_h
+  def national_us_number?
+    stripped_number.size == 10
+  end
+
+  def international_us_number?
+    stripped_number.size == 11 && stripped_number[0] == '1'
+  end
+
+  def only_digits?
+    stripped_number.chars.all? { |c| ('0'..'9').include?(c) }
+  end
+
+  def stripped_number
+    keep = ('0'..'9').to_a + ('a'..'z').to_a
+    unclean_number.downcase.chars.keep_if { |c| keep.include?(c) }.join
   end
 
   def invalid_number
-    { area_code: '000', prefix: '000', line: '0000' }
-  end
-
-  def phone_number_pattern
-    /^\W*                   # any non-word separator
-     1?                     # optional US country code
-     \W*
-     (?<area_code>\d{3})
-     \W*
-     (?<prefix>\d{3})
-     \W*
-     (?<line>\d{4})
-     \W*$/x
+    '0000000000'
   end
 end
