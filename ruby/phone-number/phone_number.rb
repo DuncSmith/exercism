@@ -52,9 +52,9 @@ class PhoneNumber
   end
 
   def stripped_chars
-    return @stripped_chars if @stripped_chars
-    keep = ('0'..'9').to_a + ('a'..'z').to_a
-    @stripped_chars =
+    @stripped_chars ||= lambda do
+      keep = ('0'..'9').to_a + ('a'..'z').to_a
       unclean_number.downcase.chars.keep_if { |c| keep.include?(c) }
+    end.call
   end
 end
