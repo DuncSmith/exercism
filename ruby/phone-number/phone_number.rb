@@ -1,4 +1,9 @@
+require 'ostruct'
+require 'forwardable'
+
 class PhoneNumber
+  extend Forwardable
+
   def initialize(number)
     @unclean_number = number
   end
@@ -11,17 +16,7 @@ class PhoneNumber
     "(#{area_code}) #{prefix}-#{line}"
   end
 
-  def area_code
-    clean_number[:area_code]
-  end
-
-  def prefix
-    clean_number[:prefix]
-  end
-
-  def line
-    clean_number[:line]
-  end
+  def_delegators :clean_number, :area_code, :prefix, :line
 
   private
 
@@ -32,15 +27,16 @@ class PhoneNumber
   end
 
   def process_number
-    if unclean_number =~ phone_number_pattern
-      {
-        area_code: Regexp.last_match['area_code'],
-        prefix: Regexp.last_match[:prefix],
-        line: Regexp.last_match[:line]
-      }
-    else
-      { area_code: '000', prefix: '000', line: '0000' }
-    end
+    OpenStruct.new(
+      if unclean_number =~ phone_number_pattern
+        {
+          area_code: Regexp.last_match['area_code'],
+          prefix: Regexp.last_match[:prefix],
+          line: Regexp.last_match[:line]
+        }
+      else
+        { area_code: '000', prefix: '000', line: '0000' }
+      end)
   end
 
   def phone_number_pattern
