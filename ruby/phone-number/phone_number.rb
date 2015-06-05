@@ -3,33 +3,29 @@ class PhoneNumber
     @unclean_number = number
   end
 
-  def number
-    "#{area_code}#{prefix}#{line}"
-  end
-
   def to_s
     "(#{area_code}) #{prefix}-#{line}"
   end
 
   def area_code
-    clean_number[0, 3]
+    number[0, 3]
   end
 
   def prefix
-    clean_number[3, 3]
+    number[3, 3]
   end
 
   def line
-    clean_number[6, 4]
+    number[6, 4]
+  end
+
+  def number
+    @number ||= valid_number? ? national_number : invalid_number
   end
 
   private
 
   attr_reader :unclean_number
-
-  def clean_number
-    @clean_number ||= valid_number? ? national_number : invalid_number
-  end
 
   def valid_number?
     only_digits? && (national_us_number? || international_us_number?)
