@@ -41,14 +41,14 @@ class PhoneNumber
   end
 
   def phone_number_pattern
-    /^\s*
+    /^\W*                   # any non-word separator
      1?                     # optional US country code
-     \(?                    # optional enclose area in parentheses
+     \W*
      (?<area_code>\d{3})
-     \)?[-.\s]*             # optional separator
+     \W*
      (?<prefix>\d{3})
-     [-.\s]*                # optional separator
+     \W*
      (?<line>\d{4})
-     \s*$/x
+     \W*$/x
   end
 end
