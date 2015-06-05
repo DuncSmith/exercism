@@ -32,7 +32,7 @@ class PhoneNumber
   end
 
   def national_number
-    stripped_number[-10, 10]
+    stripped_chars[-10, 10].join
   end
 
   def invalid_number
@@ -40,19 +40,21 @@ class PhoneNumber
   end
 
   def only_digits?
-    stripped_number.chars.all? { |c| ('0'..'9').include?(c) }
+    stripped_chars.all? { |c| ('0'..'9').include?(c) }
   end
 
   def national_us_number?
-    stripped_number.size == 10
+    stripped_chars.size == 10
   end
 
   def international_us_number?
-    stripped_number.size == 11 && stripped_number[0] == '1'
+    stripped_chars.size == 11 && stripped_chars[0] == '1'
   end
 
-  def stripped_number
+  def stripped_chars
+    return @stripped_chars if @stripped_chars
     keep = ('0'..'9').to_a + ('a'..'z').to_a
-    unclean_number.downcase.chars.keep_if { |c| keep.include?(c) }.join
+    @stripped_chars =
+      unclean_number.downcase.chars.keep_if { |c| keep.include?(c) }
   end
 end
