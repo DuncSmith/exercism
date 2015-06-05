@@ -33,7 +33,7 @@ class PhoneNumber
   end
 
   def matched_number
-    Hash[number_match.names.map { |n| [n.to_sym, number_match[n]] }]
+    number_match.names.map { |n| [n.to_sym, number_match[n]] }.to_h
   end
 
   def invalid_number
