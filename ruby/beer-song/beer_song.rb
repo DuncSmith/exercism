@@ -26,15 +26,15 @@ class BeerSongVerse
   attr_reader :number
 
   def first_line
-    "#{bottles} of beer on the wall, #{bottles} of beer.\n"
+    "#{some_bottles} of beer on the wall, #{some_bottles} of beer.\n"
   end
 
   def second_line
     "Take #{a_bottle} down and pass it around, " \
-      "#{bottles_left} of beer on the wall.\n"
+      "#{less_bottles} of beer on the wall.\n"
   end
 
-  def bottles
+  def some_bottles
     "#{number} #{bottle_word(number)}"
   end
 
@@ -42,7 +42,7 @@ class BeerSongVerse
     number == 1 ? 'it' : 'one'
   end
 
-  def bottles_left
+  def less_bottles
     "#{number == 1 ? 'no more' : number - 1} #{bottle_word(number - 1)}"
   end
 
