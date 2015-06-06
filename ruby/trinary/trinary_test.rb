@@ -56,19 +56,52 @@ class TrinaryTest < Minitest::Test
     assert_equal 0, BaseN.new('444', 3).to_decimal
   end
 
-  def test_error_if_base_less_than_2
+  def test_error_if_base_less_than_1
     assert_raises ArgumentError do
-      BaseN.new('0', 1)
+      BaseN.new('?', 0)
     end
   end
 
-  def test_error_if_base_greater_than_10
+  def test_base_1_all_values_are_decimal_0
+    assert_equal 0, BaseN.new('000000', 1).to_decimal
+  end
+
+  def test_error_if_base_greater_than_36
     assert_raises ArgumentError do
-      BaseN.new('A', 11)
+      BaseN.new('?', 37)
     end
   end
 
   def test_invalid_empty_base_value_is_decimal_0
     assert_equal 0, BaseN.new('', 2).to_decimal
+  end
+
+  def test_base_16_f3_is_decimal_243
+    assert_equal 243, BaseN.new('F3', 16).to_decimal
+  end
+
+  def test_base_20_1000_is_decimal_8000
+    assert_equal 8000, BaseN.new('1000', 20).to_decimal
+  end
+
+  def test_base_4_custom_map_cats_is_decimal_210
+    assert_equal(
+      210,
+      BaseN.new(
+        'CATS',
+        4,
+        'C' => 3, 'A' => 1, 'T' => 0, 'S' => 2).to_decimal)
+  end
+
+  def test_error_if_custom_map_missing_value
+    assert_raises ArgumentError do
+      BaseN.new('A', 2, 'A' => 0, 'B' => 2)
+    end
+  end
+
+  def test_error_if_custom_map_duplicate_value
+    assert_raises ArgumentError do
+      BaseN.new('A', 2, 'A' => 0, 'B' => 1, 'C' => 1)
+    end
   end
 end
