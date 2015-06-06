@@ -5,7 +5,7 @@ module ArrayExtensions
     each { |e| a << e if yield(e) }
     a
   end
-  
+
   def discard
     return enum_for(:discard) unless block_given?
     a = []
