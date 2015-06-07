@@ -13,9 +13,7 @@ class Crypto
 
   def plaintext_segments
     @plaintext_segments ||=
-      (0...normalize_plaintext.size).step(size).map do |start|
-        normalize_plaintext[start, size]
-      end
+      normalize_plaintext.chars.each_slice(size).map(&:join)
   end
 
   def ciphertext
