@@ -19,11 +19,11 @@ class Crypto
   end
 
   def ciphertext
-    ciphertext_segments.join
+    @ciphertext ||= ciphertext_segments.join
   end
 
   def normalize_ciphertext
-    ciphertext_segments.join(' ')
+    @normalize_ciphertext ||= ciphertext_segments.join(' ')
   end
 
   private
@@ -31,7 +31,7 @@ class Crypto
   attr_reader :text
 
   def ciphertext_segments
-    (0...size).map do |i|
+    @ciphertext_segments ||= (0...size).map do |i|
       plaintext_segments.map { |s| s[i] }.compact.join
     end
   end
