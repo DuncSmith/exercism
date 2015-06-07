@@ -32,7 +32,7 @@ class Crypto
 
   def ciphertext_segments
     @ciphertext_segments ||= (0...size).map do |i|
-      plaintext_segments.map { |s| s[i] }.compact.join
+      plaintext_segments.map { |s| s[i] }.join
     end
   end
 end
