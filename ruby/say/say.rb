@@ -1,10 +1,10 @@
 class Say
   def initialize(number)
-    validate_input(number)
     @number = number
   end
 
   def in_english
+    fail(ArgumentError, 'Number out of bounds') unless valid?
     return 'zero' if number == 0
     big_part = 100 * (number / 100)
     small_part = number - big_part
@@ -18,9 +18,8 @@ class Say
 
   attr_reader :number
 
-  def validate_input(number)
-    return if number >= 0 && number < 1_000_000_000_000
-    fail(ArgumentError, 'Number out of bounds')
+  def valid?
+    number >= 0 && number < 1_000_000_000_000
   end
 
   def say_big_number(number)
