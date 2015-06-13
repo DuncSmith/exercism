@@ -1,13 +1,4 @@
-module PrivateConstants
-  def private_const_set(name, value)
-    const_set(name, value)
-    private_constant name
-  end
-end
-
 class Say
-  extend PrivateConstants
-
   def initialize(number)
     validate_input(number)
     @number = number
@@ -57,17 +48,15 @@ class Say
     words.any? ? words.join('-') : nil
   end
 
-  private_const_set(
-    :BIG_WORDS,
+  BIG_WORDS =
     [
       [1_000_000_000, 'billion'],
       [1_000_000, 'million'],
       [1_000, 'thousand'],
       [100, 'hundred']
-    ])
+    ]
 
-  private_const_set(
-    :SMALL_WORDS,
+  SMALL_WORDS =
     [
       [90, 'ninety'],
       [80, 'eighty'],
@@ -96,5 +85,7 @@ class Say
       [3, 'three'],
       [2, 'two'],
       [1, 'one']
-    ])
+    ]
+
+  private_constant :BIG_WORDS, :SMALL_WORDS
 end
