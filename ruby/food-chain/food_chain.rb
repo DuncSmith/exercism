@@ -4,77 +4,82 @@ class FoodChainSong
   end
 
   def verses(from, to)
-    format_lines((from..to).map { |number| verse(number) })
+    (from..to).map { |number| verse(number) + "\n" }.join
   end
 
   def verse(number)
-    format_lines(opening(number), closing(number))
-  end
-  
-  private
-  
-  def opening(number)
-    lines = [first_line(things[number-1])]
-    lines << second_line[number-2] unless number < 2
-    lines
-  end
-  
-  def closing(number)
-    return [] if number == 8
-    [
-      things_in_verse(number).map { |things| reason_line(things) },
-      last_line
-    ]
-  end
-  
-  def format_lines(*lines)
-    lines.flatten.join("\n") + "\n"
-  end
-  
-  def first_line(thing)
-    "I know an old lady who swallowed a #{thing}."
-  end
-  
-  def second_line
-    [
-      "It wriggled and jiggled and tickled inside her.",
-      "How absurd to swallow a bird!",
-      "Imagine that, to swallow a cat!",
-      "What a hog, to swallow a dog!",
-      "Just opened her throat and swallowed a goat!",
-      "I don't know how she swallowed a cow!",
-      "She's dead, of course!"
-    ]
-  end
-  
-  def things_in_verse(number)
-    thing_pairs.drop(1 + thing_pairs.size - number)
+    Verse.new(number).to_s
   end
 
-  def thing_pairs
-    things.reverse.take(things.size - 1).zip(things.reverse.drop(1))
-  end
-  
-  def things
-    [
-      "fly",
-      "spider",
-      "bird",
-      "cat",
-      "dog",
-      "goat",
-      "cow",
-      "horse"
-    ]
-  end
-  
-  def reason_line(things)
-    "She swallowed the #{things[0]} to catch the #{things[1]}" +
-      (things[1] == 'spider' ?
-        ' that wriggled and jiggled and tickled inside her' : '') + "."
+  class Verse
+    def initialize(number)
+      @number = number
+    end
+
+    def to_s
+      [first_line, second_line, reason_lines, last_line].join
+    end
+
+    private
+
+    attr_reader :number
+
+    def first_line
+      "I know an old lady who swallowed a #{THING[number]}.\n"
+    end
+
+    def second_line
+      [
+        '',
+        "It wriggled and jiggled and tickled inside her.\n",
+        "How absurd to swallow a bird!\n",
+        "Imagine that, to swallow a cat!\n",
+        "What a hog, to swallow a dog!\n",
+        "Just opened her throat and swallowed a goat!\n",
+        "I don't know how she swallowed a cow!\n",
+        "She's dead, of course!\n"
+      ][number - 1]
+    end
+
+    def reason_lines
+      return if last_verse?
+      number.downto(2).reduce([]) { |a, e| a + reason_line(e) }
+    end
+
+    def reason_line(n)
+      [
+        "She swallowed the #{THING[n]} to catch the #{THING[n - 1]}",
+        if THING[n - 1] == 'spider'
+          ' that wriggled and jiggled and tickled inside her'
+        end,
+        ".\n"
+      ]
+    end
+
+    def last_line
+      return if last_verse?
+      "I don't know why she swallowed the fly. Perhaps she'll die.\n"
+    end
+
+    def last_verse?
+      number == THING.size - 1
+    end
+
+    THING =
+      [
+        '',
+        'fly',
+        'spider',
+        'bird',
+        'cat',
+        'dog',
+        'goat',
+        'cow',
+        'horse'
+      ]
+
+    private_constant :THING
   end
 
-  def last_line
-    "I don't know why she swallowed the fly. Perhaps she'll die."
-  end
+  private_constant :Verse
 end
