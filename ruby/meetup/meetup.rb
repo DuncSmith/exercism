@@ -22,8 +22,8 @@ class Meetup
   end
 
   def teenth(weekday)
-    first_weekday = first(weekday)
-    first_weekday + (first_weekday.mday < 6 ? 14 : 7)
+    date = first(weekday) + 7
+    date.mday < 13 ? date + 7 : date
   end
 
   def third(weekday)
