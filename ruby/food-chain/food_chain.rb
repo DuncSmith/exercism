@@ -1,14 +1,8 @@
-class FoodChainSong
-  def sing
-    verses(1, 8)
-  end
+class FoodChain
+  VERSION = 1
 
-  def verses(from, to)
-    (from..to).map { |number| verse(number) + "\n" }.join
-  end
-
-  def verse(number)
-    Verse.new(number).to_s
+  def self.song
+    (1..8).map { |number| Verse.new(number).to_s }.join("\n")
   end
 
   class Verse
