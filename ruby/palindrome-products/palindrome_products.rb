@@ -1,3 +1,5 @@
+require 'ostruct'
+
 class Palindromes
   def initialize(options)
     @min_factor = options[:min_factor] || 1
@@ -6,12 +8,9 @@ class Palindromes
 
   def generate
     @palindromes ||=
-      (min_factor..max_factor).to_a.repeated_combination(2)
-      .map { |a, b| [a * b, [a, b]] }
+      products.select { |p, _| palindrome?(p) }
       .sort { |a, b| a[0] <=> b[0] }
-      .select { |p, _| palindrome?(p) }
-      .group_by { |product, _| product }
-      .map { |v, e| Palindrome.new(v, e.map { |_, f| f }) }
+      .map { |v, f| OpenStruct.new(value: v, factors: f) }
   end
 
   def largest
@@ -26,16 +25,15 @@ class Palindromes
 
   attr_reader :min_factor, :max_factor, :palindromes
 
-  def palindrome?(n)
-    n.to_s == n.to_s.reverse
+  def products
+    pairs.reduce({}) { |a, (m, n)| (a[m * n] ||= []) << [m, n] && a }
   end
 
-  class Palindrome
-    attr_reader :value, :factors
+  def pairs
+    (min_factor..max_factor).to_a.repeated_combination(2)
+  end
 
-    def initialize(value, factors)
-      @value = value
-      @factors = factors
-    end
+  def palindrome?(n)
+    n.to_s == n.to_s.reverse
   end
 end
