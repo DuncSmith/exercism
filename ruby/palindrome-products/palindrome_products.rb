@@ -9,41 +9,8 @@ class Palindromes
   end
 
   def generate
-    smallest_value = max_factor**2
-    smallest_factors = []
-    min_factor.upto(max_factor).each do |m|
-      break if m**2 > smallest_value
-      m.upto(max_factor).each do |n|
-        product = m * n
-        break if product > smallest_value
-        next unless palindrome?(product)
-        if smallest_value > product
-          smallest_value = product
-          smallest_factors = []
-        end
-        smallest_factors << [m, n]
-      end
-    end
-    @smallest =
-      OpenStruct.new(value: smallest_value, factors: smallest_factors)
-
-    largest_value = min_factor**2
-    largest_factors = []
-    max_factor.downto(min_factor).each do |m|
-      break if m**2 < largest_value
-      m.downto(min_factor).each do |n|
-        product = m * n
-        break if product < largest_value
-        next unless palindrome?(product)
-        if largest_value < product
-          largest_value = product
-          largest_factors = []
-        end
-        largest_factors << [n, m]
-      end
-    end
-    @largest =
-      OpenStruct.new(value: largest_value, factors: largest_factors)
+    @smallest = smallest_palindrome
+    @largest = largest_palindrome
   end
 
   private
@@ -60,5 +27,36 @@ class Palindromes
 
   def palindrome?(n)
     n.to_s == n.to_s.reverse
+  end
+
+  def smallest_palindrome
+    find_palindrome(
+      max_factor**2,
+      min_factor.upto(max_factor).to_a.repeated_combination(2),
+      ->(x, v) { x**2 > v },
+      ->(p, v) { v > p })
+  end
+
+  def largest_palindrome
+    find_palindrome(
+      min_factor**2,
+      max_factor.downto(min_factor).to_a.repeated_combination(2),
+      ->(x, v) { x**2 < v },
+      ->(p, v) { v < p })
+  end
+
+  def find_palindrome(value, pairs, found, better)
+    factors = []
+    pairs.each do |m, n|
+      break if found[m, value]
+      product = m * n
+      next unless palindrome?(product)
+      if better[product, value]
+        value = product
+        factors = []
+      end
+      factors << [n, m] if product == value
+    end
+    OpenStruct.new(value: value, factors: factors)
   end
 end
