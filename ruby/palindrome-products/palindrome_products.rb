@@ -15,7 +15,7 @@ class Palindromes
 
   private
 
-  attr_reader :min_factor, :max_factor, :palindromes
+  attr_reader :min_factor, :max_factor
 
   def pairs
     (min_factor..max_factor).to_a.repeated_combination(2)
